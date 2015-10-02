@@ -3,6 +3,7 @@
 var DEV_DIR = 'dist/dev/',
     PROD_DIR = 'dist/prod/',
 
+    path = require('path'),
     gulp = require('gulp'),
     sass = require('gulp-sass'),
     uglify = require('gulp-uglify'),
@@ -18,6 +19,8 @@ var DEV_DIR = 'dist/dev/',
     babelify = require('babelify'),
     watchify = require('watchify'),
     assign = require('lodash.assign'),
+    svgstore = require('gulp-svgstore'),
+    svgmin = require('gulp-svgmin'),
 
     libraries = [
       'lodash',
@@ -145,11 +148,32 @@ gulp.task('prod', function() {
 });
 
 /**
+ * Smashes all our SVG assets together into one minified symbol sheet.
+ */
+gulp.task('svg', function() {
+  return gulp
+    .src('src/img/*.svg')
+    .pipe(svgmin(function(file) {
+      var prefix = path.basename(file.relative, path.extname(file.relative));
+      return {
+        plugins: [{
+          cleanupIDs: {
+            prefix: prefix + '-',
+            minify: true
+          }
+        }]
+      }
+    }))
+    .pipe(svgstore())
+    .pipe(gulp.dest(DEV_DIR));
+});
+
+/**
  * Configure the default task to compile all the things for dev.
  */
-gulp.task('default', ['dev-libs', 'dev']);
+gulp.task('default', ['dev-libs', 'dev', 'svg']);
 
 /**
  * Compile everything magically for prod.
  */
-gulp.task('production', ['prod-libs', 'prod']);
+gulp.task('production', ['prod-libs', 'prod', 'svg']);
