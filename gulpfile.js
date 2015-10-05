@@ -21,6 +21,7 @@ var DEV_DIR = 'dist/dev/',
     assign = require('lodash.assign'),
     svgstore = require('gulp-svgstore'),
     svgmin = require('gulp-svgmin'),
+    inject = require('gulp-inject'),
 
     libraries = [
       'lodash',
@@ -78,12 +79,6 @@ gulp.task('dev', function() {
       .pipe(gulp.dest(DEV_DIR))
       .pipe(livereload());
   }
-
-  // Copy over the index file. Nothing fancy.
-  gulp
-    .src('src/html/index.dev.html')
-    .pipe(rename('index.html'))
-    .pipe(gulp.dest(DEV_DIR));
 
   //Watch for SCSS changes and reload.
   gulp.watch('src/scss/*.scss', compileSASS);
@@ -151,6 +146,21 @@ gulp.task('prod', function() {
  * Smashes all our SVG assets together into one minified symbol sheet.
  */
 gulp.task('svg', function() {
+  var svgs = gulp
+    .src('src/img/*.svg')
+    .pipe(svgstore({
+      inlineSvg: true
+    }));
+
+    function fileContents (filePath, file) {
+        return file.contents.toString();
+    }
+
+    return gulp
+        .src('src/html/index.dev.html')
+        .pipe(inject(svgs, { transform: fileContents }))
+        .pipe(gulp.dest(DEV_DIR));
+  /*
   return gulp
     .src('src/img/*.svg')
     .pipe(svgmin(function(file) {
@@ -166,6 +176,7 @@ gulp.task('svg', function() {
     }))
     .pipe(svgstore())
     .pipe(gulp.dest(DEV_DIR));
+  */
 });
 
 /**
@@ -177,3 +188,24 @@ gulp.task('default', ['dev-libs', 'dev', 'svg']);
  * Compile everything magically for prod.
  */
 gulp.task('production', ['prod-libs', 'prod', 'svg']);
+
+/**
+ * var gulp = require('gulp');
+var svgstore = require('gulp-svgstore');
+var inject = require('gulp-inject');
+
+gulp.task('svgstore', function () {
+    var svgs = gulp
+        .src('test/src/*.svg')
+        .pipe(svgstore({ inlineSvg: true }));
+
+    function fileContents (filePath, file) {
+        return file.contents.toString();
+    }
+
+    return gulp
+        .src('test/src/inline-svg.html')
+        .pipe(inject(svgs, { transform: fileContents }))
+        .pipe(gulp.dest('test/dest'));
+});
+ */
