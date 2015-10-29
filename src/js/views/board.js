@@ -6,10 +6,15 @@ function svg(name = 'clover-spiked') {
   );
 }
 
+// This is crap:
+function cardWithState(card) {
+  return 'li.card' + (card.selected() ? '.selected' : '');
+}
+
 export default function(ctrl) {
-  return m('ul#cards', {onclick: ctrl.select.bind(ctrl)}, [
+  return m('ul#board', { onclick: ctrl.select.bind(ctrl) }, [
     ctrl.cards.map(function(card) {
-      return m('li.card' + (card.selected() ? '.selected' : ''),
+      return m(cardWithState(card),
         m('div.flipper', [
           m('div.front',
             svg()
@@ -21,4 +26,4 @@ export default function(ctrl) {
       );
     })
   ]);
-}
+};

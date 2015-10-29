@@ -3,7 +3,7 @@ import Card from '../models/card';
 
 function getCardByDOMReference(el) {
   var card = el.closest('.card'),
-      index = _.indexOf(document.getElementById('cards').children, card);
+      index = _.indexOf(document.getElementById('board').children, card);
   return this.cards[index];
 }
 

@@ -1,10 +1,9 @@
 import m from 'mithril';
-import boardController from './controllers/board';
-import boardView from './views/board';
+import appView from './views/app';
 
-var board = {
-  controller: boardController,
-  view: boardView
+// App root component.
+var app = {
+  view: appView
 };
 
-m.mount(document.getElementById('app'), board);
+m.mount(document.getElementById('app'), app);

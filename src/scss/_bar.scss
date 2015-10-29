@@ -1,0 +1,14 @@
+.bar {
+  display: block;
+  width: 100%;
+  height: 2rem;
+  margin-bottom: 0.4rem;
+
+  &.health {
+    background-color: #b93848;
+  }
+
+  &.energy {
+    background-color: #96a0c4;
+  }
+}
