@@ -1,7 +1,5 @@
 import _ from 'lodash';
 
-var back = 'clover-spiked';
-
 var cards = [
 
   // Monsters

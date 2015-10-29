@@ -1,7 +1,7 @@
 import m from 'mithril';
 import _ from 'lodash';
-import Cards from '../data/cards';
-import Floors from '../data/floors';
+import CardData from '../data/cards';
+import FloorData from '../data/floors';
 
 function Card(data) {
   this.name = m.prop(data.name);
@@ -14,14 +14,14 @@ function Card(data) {
 Card.get = function(floor) {
 
   // Retrieve the card data to generate a floor.
-  var floor = Floors.get(1);
-  var allCards = Cards.get();
+  var floorData = FloorData.get(1);
+  var cardData = CardData.get();
 
   // Finally used the spread method properly!
   // TIL pairs + spread = 'happiness'
-  var cards = _.map(_.pairs(floor), _.spread(function(name, amount) {
+  var cards = _.map(_.pairs(floorData), _.spread(function(name, amount) {
     return _.times(amount, function() {
-      var data = _.find(allCards, 'name', name);
+      var data = _.find(cardData, 'name', name);
       return new Card(data);
     });
   }));
