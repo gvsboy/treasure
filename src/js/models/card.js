@@ -15,16 +15,19 @@ Card.get = function(floor) {
 
   // Retrieve the card data to generate a floor.
   var floor = Floors.get(1);
+  var allCards = Cards.get();
 
-  console.log(_.keys(floor));
+  // Finally used the spread method properly!
+  // TIL pairs + spread = 'happiness'
+  var cards = _.map(_.pairs(floor), _.spread(function(name, amount) {
+    return _.times(amount, function() {
+      var data = _.find(allCards, 'name', name);
+      return new Card(data);
+    });
+  }));
 
-  // For each piece of data, create and collect a card.
-  var cards = Cards.get().map(function(card) {
-    return new Card(card);
-  });
-
-  // Return the shuffled card list.
-  return _.shuffle(cards);
+  // Return the flattened, shuffled card list.
+  return _.shuffle(_.flatten(cards));
 };
 
 export default Card;

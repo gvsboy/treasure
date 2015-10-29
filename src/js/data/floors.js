@@ -16,7 +16,7 @@ var floors = [
     Bread: 2,
     Mace: 2,
     'Short Sword': 2,
-    'Leather Armor': 2,
+    'Leather Vest': 2,
     'Fire Scroll': 2,
     Stairs: 2
   }
