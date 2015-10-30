@@ -12,7 +12,7 @@ function cardWithState(card) {
 }
 
 export default function(ctrl) {
-  return m('ul#board', { onclick: ctrl.select.bind(ctrl) }, [
+  return m('ul#board', { onclick: ctrl.select }, [
     ctrl.cards.map(function(card) {
       return m(cardWithState(card),
         m('div.flipper', [
