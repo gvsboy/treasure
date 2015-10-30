@@ -8,7 +8,9 @@ function svg(name = 'clover-spiked') {
 
 // This is crap:
 function cardWithState(card) {
-  return 'li.card' + (card.selected() ? '.selected' : '');
+  var selected = card.selected() ? '.selected' : '';
+  var taken = card.taken() ? '.taken' : '';
+  return 'li.card' + selected + taken;
 }
 
 export default function(ctrl) {

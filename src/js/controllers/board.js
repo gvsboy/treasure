@@ -10,49 +10,68 @@ function getCardByDOMReference(el) {
 
 export default function(args) {
 
-  var previousCard,
-      locked = false;
+  var player = args.player,
+      locked = false,
+      previousCard;
 
   // Fetch new cards for the passed floor.
-  this.cards = Card.get(args.floor);
+  this.cards = Card.get(player.floor());
 
   // Select a card to match.
   this.select = function(evt) {
 
     var card;
 
+    // If the board is locked, don't do anything.
     if (locked) {
       return;
     }
 
+    // Reference a card model object based on the click target.
     card = getCardByDOMReference.call(this, evt.target);
+
+    // If no card exists
+    // or the card is the previous card
+    // or the card has already been taken
+    // abort.
+    if (!card || previousCard === card || card.taken()) {
+      return;
+    }
+
+    // A card exists. Select it.
     card.selected(true);
 
     // A card was already selected. What up.
     if (previousCard) {
 
-      // If the previous card isn't this card, try to match.
-      if (previousCard !== card) {
+      // Lock it up.
+      locked = true;
 
-        // Lock it up.
-        locked = true;
-
-        // If types match, things are looking good. Let's try and dig deeper.
-        if (previousCard.type() === card.type()) {
-          console.log('same type oh snap! :::', card.type());
-        }
-
-        // Reset and restore board functionality.
-        // This is slightly cheesey but works!
-        else {
+      // If types match, things are looking good. Let's try and dig deeper.
+      if (previousCard.type() === card.type() && previousCard.name() === card.name()) {
           _.delay(() => {
             card.selected(false);
             previousCard.selected(false);
+            card.taken(true);
+            previousCard.taken(true);
             previousCard = null;
             locked = false;
+            player.energy(player.energy() - 1);
             m.redraw();
           }, 1500);
-        }
+      }
+
+      // Reset and restore board functionality.
+      // This is slightly cheesey but works!
+      else {
+        _.delay(() => {
+          card.selected(false);
+          previousCard.selected(false);
+          previousCard = null;
+          locked = false;
+          player.energy(player.energy() - 1);
+          m.redraw();
+        }, 1500);
       }
     }
 
@@ -60,6 +79,7 @@ export default function(args) {
     else {
       previousCard = card;
     }
+
   }.bind(this);
 
 }

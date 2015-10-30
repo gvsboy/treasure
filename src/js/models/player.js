@@ -1,8 +1,15 @@
 import m from 'mithril';
 
 function Player() {
-  this.health = m.prop(50);
-  this.energy = m.prop(20);
+
+  var health = 50,
+      energy = 20;
+
+  this.floor = m.prop(1);
+  this.health = m.prop(health);
+  this.maxHealth = m.prop(health);
+  this.energy = m.prop(energy);
+  this.maxEnergy = m.prop(energy);
 }
 
 export default Player;

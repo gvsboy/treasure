@@ -8,13 +8,13 @@ function Card(data) {
   this.type = m.prop(data.type);
   this.icon = m.prop(data.icon);
   this.selected = m.prop(false);
-  this.matched = m.prop(false);
+  this.taken = m.prop(false);
 }
 
 Card.get = function(floor) {
 
   // Retrieve the card data to generate a floor.
-  var floorData = FloorData.get(1);
+  var floorData = FloorData.get(floor);
   var cardData = CardData.get();
 
   // Finally used the spread method properly!

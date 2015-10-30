@@ -3,6 +3,8 @@
 // Or wait. Maybe I should chill and figure this out.
 export default function(args) {
   return {
-    type: args.type
+    type: args.type,
+    value: args.value,
+    max: args.max
   };
 };
