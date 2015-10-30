@@ -16,10 +16,13 @@ var bar = {
   controller: barController
 };
 
+// What floor are we on?
+var floor = 1;
+
 export default function(ctrl) {
   return m('div#container', [
     m('div.column', [
-      m.component(board),
+      m.component(board, { floor }),
       m.component(bar, { type: 'health' }),
       m.component(bar, { type: 'energy' })
     ])
