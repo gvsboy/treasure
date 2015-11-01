@@ -19,7 +19,7 @@ export default function(ctrl) {
       return m(cardWithState(card),
         m('div.flipper', [
           m('div.front',
-            svg()
+            svg(card.icon())//svg()
           ),
           m('div.back',
             svg(card.icon())

@@ -2,6 +2,7 @@ import m from 'mithril';
 import _ from 'lodash';
 import CardData from '../data/cards';
 import FloorData from '../data/floors';
+import Mechanics from '../mechanics/mechanics';
 
 function Card(data) {
   this.name = m.prop(data.name);
@@ -10,6 +11,19 @@ function Card(data) {
   this.selected = m.prop(false);
   this.taken = m.prop(false);
 }
+
+Card.prototype = {
+
+  /**
+   * Retrieves the proper mechanics for the card and invokes them.
+   * @param  {Player} player The player to invoke the mechanics on.
+   */
+  activate: function(player) {
+    var mechanic = Mechanics.get(this);
+    mechanic(player);
+  }
+
+};
 
 Card.get = function(floor) {
 

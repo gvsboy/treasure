@@ -50,13 +50,13 @@ export default function(args) {
       // If types match, things are looking good. Let's try and dig deeper.
       if (previousCard.type() === card.type() && previousCard.name() === card.name()) {
           _.delay(() => {
+            player.takeCard(card);
             card.selected(false);
             previousCard.selected(false);
-            card.taken(true);
             previousCard.taken(true);
             previousCard = null;
             locked = false;
-            player.energy(player.energy() - 1);
+            player.updateEnergy(-1);
             m.redraw();
           }, 1500);
       }
@@ -69,7 +69,7 @@ export default function(args) {
           previousCard.selected(false);
           previousCard = null;
           locked = false;
-          player.energy(player.energy() - 1);
+          player.updateEnergy(-1);
           m.redraw();
         }, 1500);
       }

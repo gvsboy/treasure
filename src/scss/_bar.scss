@@ -3,6 +3,7 @@
   width: 100%;
   height: 2rem;
   margin-bottom: 0.4rem;
+  transition: width 0.2s;
 
   &.health {
     background-color: #b93848;
