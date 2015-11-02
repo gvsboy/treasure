@@ -2,7 +2,7 @@ import m from 'mithril';
 
 function Player() {
 
-  var health = 50,
+  var health = 30,
       energy = 20;
 
   this.floor = m.prop(1);
@@ -17,6 +17,7 @@ function Player() {
   this.speed = m.prop(2);
   this.magic = m.prop(1);
 
+  this.level = m.prop(1);
   this.gold = m.prop(0);
   this.exp = m.prop(0);
 }
@@ -26,6 +27,10 @@ Player.prototype = {
   takeCard: function(card) {
     card.taken(true);
     card.activate(this);
+  },
+
+  updateHealth: function(amount) {
+    this.health(this.health() + amount);
   },
 
   updateEnergy: function(amount) {

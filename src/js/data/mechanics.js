@@ -29,19 +29,37 @@ export const treasure = {
 export const trap = {
 
   "Tripwire": {
-
+    save: "speed",
+    power: 8,
+    result: {
+      updateHealth: "1d4"
+    }
   },
 
   "Razorwire": {
-
+    save: "speed",
+    power: 12,
+    result: {
+      updateHealth: "2d4"
+    }
   },
 
   "Net": {
-
+    save: "speed",
+    power: 10,
+    result: {
+      updateHealth: "1d4",
+      updateEnergy: "1d4"
+    }
   },
 
   "Chain Net": {
-
+    save: "speed",
+    power: 13,
+    result: {
+      updateHealth: "2d4",
+      updateEnergy: "2d4"
+    }
   }
 
 };
