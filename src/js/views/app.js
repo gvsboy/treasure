@@ -21,6 +21,25 @@ export default function(ctrl) {
   var player = ctrl.player;
 
   return m('div#container', [
+    m('div.column.status', [
+      m('ul', [
+        m('li', 'Floor: ' + player.floor()),
+        m('li', 'Level: ' + player.level()),
+        m('li', 'Exp: ' + player.exp()),
+        m('li', 'Gold: ' + player.gold())
+      ]),
+      m('hr'),
+      m('ul', [
+        m('li', 'Attack: ' + player.attack()),
+        m('li', 'Defense: ' + player.defense()),
+        m('li', 'Speed: ' + player.speed()),
+        m('li', 'Magic: ' + player.magic())
+      ]),
+      m('hr'),
+      m('ul', player.items().map(item => {
+        return m('li', item.name());
+      }))
+    ]),
     m('div.column', [
       m.component(board, { player }),
       m.component(bar, { type: 'health', value: player.health, max: player.maxHealth }),

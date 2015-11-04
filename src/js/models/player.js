@@ -13,13 +13,15 @@ function Player() {
   this.maxEnergy = m.prop(energy);
 
   this.attack = m.prop(5);
-  this.defence = m.prop(2);
+  this.defense = m.prop(2);
   this.speed = m.prop(2);
   this.magic = m.prop(1);
 
   this.level = m.prop(1);
   this.gold = m.prop(0);
   this.exp = m.prop(0);
+
+  this.items = m.prop([]);
 }
 
 Player.prototype = {
@@ -40,6 +42,10 @@ Player.prototype = {
   updateGold: function(amount) {
     this.gold(this.gold() + amount);
   },
+
+  addItem: function(item) {
+    this.items().push(item);
+  }
 
 };
 

@@ -82,7 +82,7 @@ var cards = [
   // Magic
   {
     name: 'Fire Scroll',
-    type: 'armor',
+    type: 'magic',
     icon: 'tied-scroll'
   },
 

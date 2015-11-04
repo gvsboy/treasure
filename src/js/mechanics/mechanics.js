@@ -2,11 +2,15 @@ import _ from 'lodash';
 import TreasureMechanics from './treasure';
 import TrapMechanics from './trap';
 import FoodMechanics from './food';
+import ItemMechanics from './item';
 
 var mechanicsMap = {
   treasure: TreasureMechanics,
   trap: TrapMechanics,
-  food: FoodMechanics
+  food: FoodMechanics,
+  weapon: ItemMechanics,
+  armor: ItemMechanics,
+  magic: ItemMechanics
 };
 
 export default {
