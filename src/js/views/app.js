@@ -3,6 +3,8 @@ import boardView from './board';
 import boardController from '../controllers/board';
 import barView from './bar';
 import barController from '../controllers/bar';
+import animationView from './animation';
+import animationController from '../controllers/animation';
 
 // Board component.
 var board = {
@@ -16,9 +18,15 @@ var bar = {
   controller: barController
 };
 
+var animations = {
+  view: animationView,
+  controller: animationController
+};
+
 export default function(ctrl) {
 
-  var player = ctrl.player;
+  var player = ctrl.player,
+      cards = ctrl.cards;
 
   return m('div#container', [
     m('div.column.status', [
@@ -41,9 +49,10 @@ export default function(ctrl) {
       }))
     ]),
     m('div.column', [
-      m.component(board, { player }),
+      m.component(board, { player,  cards }),
       m.component(bar, { type: 'health', value: player.health, max: player.maxHealth }),
       m.component(bar, { type: 'energy', value: player.energy, max: player.maxEnergy })
-    ])
+    ]),
+    m.component(animations, { cards })
   ]);
 };

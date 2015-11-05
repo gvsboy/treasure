@@ -1,7 +1,7 @@
 import m from 'mithril';
 import _ from 'lodash';
-import Card from '../models/card';
 
+// not good
 function getCardByDOMReference(el) {
   var card = el.closest('.card'),
       index = _.indexOf(document.getElementById('board').children, card);
@@ -15,7 +15,15 @@ export default function(args) {
       previousCard;
 
   // Fetch new cards for the passed floor.
-  this.cards = Card.get(player.floor());
+  this.cards = args.cards;
+
+  // Generates appropriate classes for the given card.
+  // Not in love with this.
+  this.getCardClasses = function(card) {
+    var potentials = ['selected', 'taken'],
+        classes = _.filter(potentials, state => card[state]());
+    return { class: classes.join(' ') };
+  };
 
   // Select a card to match.
   this.select = function(evt) {
