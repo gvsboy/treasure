@@ -7,7 +7,7 @@ function svg(name = 'clover-spiked') {
 }
 
 export default function(ctrl, args) {
-  return m('li.card', args.class || {},
+  return m('li.card', { class: args.class },
     m('div.flipper', [
       m('div.front',
         svg(args.front)

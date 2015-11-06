@@ -1,5 +1,6 @@
-import _ from 'lodash';
+import cardsVM from '../vm/cards';
 
 export default function(args) {
-  this.cards = args.cards; // filter out only the animated cards here.
+  this.cards = args.cards;
+  this.cardsVM = cardsVM;
 };

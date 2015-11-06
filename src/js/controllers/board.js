@@ -1,5 +1,6 @@
 import m from 'mithril';
 import _ from 'lodash';
+import cardsVM from '../vm/cards';
 
 // not good
 function getCardByDOMReference(el) {
@@ -17,13 +18,8 @@ export default function(args) {
   // Fetch new cards for the passed floor.
   this.cards = args.cards;
 
-  // Generates appropriate classes for the given card.
-  // Not in love with this.
-  this.getCardClasses = function(card) {
-    var potentials = ['selected', 'taken'],
-        classes = _.filter(potentials, state => card[state]());
-    return { class: classes.join(' ') };
-  };
+  // Set the cards view-model.
+  this.cardsVM = cardsVM;
 
   // Select a card to match.
   this.select = function(evt) {
@@ -47,7 +43,7 @@ export default function(args) {
     }
 
     // A card exists. Select it.
-    card.selected(true);
+    this.cardsVM(card.id).state('selected');
 
     // A card was already selected. What up.
     if (previousCard) {
@@ -57,6 +53,15 @@ export default function(args) {
 
       // If types match, things are looking good. Let's try and dig deeper.
       if (previousCard.type() === card.type() && previousCard.name() === card.name()) {
+
+        // Set a class to flag capture animation.
+        _.delay(() => {
+          this.cardsVM(card.id).state('matched');
+          this.cardsVM(previousCard.id).state('matched');
+          m.redraw();
+        }, 1000);
+
+        /* TAKE THE CARD IMMEDIATELY:
           _.delay(() => {
             player.takeCard(card);
             card.selected(false);
@@ -67,14 +72,15 @@ export default function(args) {
             player.updateEnergy(-1);
             m.redraw();
           }, 1500);
+        */
       }
 
       // Reset and restore board functionality.
       // This is slightly cheesey but works!
       else {
         _.delay(() => {
-          card.selected(false);
-          previousCard.selected(false);
+          this.cardsVM(card.id).state('');
+          this.cardsVM(previousCard.id).state('');
           previousCard = null;
           locked = false;
           player.updateEnergy(-1);

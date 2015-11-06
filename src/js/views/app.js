@@ -38,10 +38,15 @@ export default function(ctrl) {
       ]),
       m('hr'),
       m('ul', [
-        m('li', 'Attack: ' + player.attack()),
-        m('li', 'Defense: ' + player.defense()),
+        m('li', 'Strength: ' + player.strength()),
+        m('li', 'Vitality: ' + player.vitality()),
         m('li', 'Speed: ' + player.speed()),
         m('li', 'Magic: ' + player.magic())
+      ]),
+      m('hr'),
+      m('ul', [
+        m('li', 'Attack: ' + player.attack()),
+        m('li', 'Defense: ' + player.defense())
       ]),
       m('hr'),
       m('ul', player.items().map(item => {

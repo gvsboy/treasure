@@ -5,10 +5,10 @@ import FloorData from '../data/floors';
 import Mechanics from '../mechanics/mechanics';
 
 function Card(data) {
+  this.id = _.uniqueId();
   this.name = m.prop(data.name);
   this.type = m.prop(data.type);
   this.icon = m.prop(data.icon);
-  this.selected = m.prop(false);
   this.taken = m.prop(false);
 }
 

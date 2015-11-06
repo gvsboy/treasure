@@ -8,8 +8,9 @@ var card = {
 export default function(ctrl) {
   return m('ul#board', { onclick: ctrl.select }, [
     ctrl.cards.map(function(c) {
+      var vm = ctrl.cardsVM(c.id);
       return m.component(card, {
-        class: ctrl.getCardClasses(c),
+        class: vm.state(),
         front: c.icon(),
         back: c.icon()
       })

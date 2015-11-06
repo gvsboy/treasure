@@ -12,10 +12,13 @@ function Player() {
   this.energy = m.prop(energy);
   this.maxEnergy = m.prop(energy);
 
-  this.attack = m.prop(5);
-  this.defense = m.prop(2);
+  this.strength = m.prop(5);
+  this.vitality = m.prop(2);
   this.speed = m.prop(2);
   this.magic = m.prop(1);
+
+  this.attack = m.prop('1d4');
+  this.defense = m.prop(2);
 
   this.level = m.prop(1);
   this.gold = m.prop(0);
