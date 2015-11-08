@@ -5,7 +5,7 @@ import FloorData from '../data/floors';
 import Mechanics from '../mechanics/mechanics';
 
 function Card(data) {
-  this.id = _.uniqueId();
+  this.id = 'card-' + _.uniqueId();
   this.name = m.prop(data.name);
   this.type = m.prop(data.type);
   this.icon = m.prop(data.icon);
@@ -31,17 +31,15 @@ Card.get = function(floor) {
   var floorData = FloorData.get(floor);
   var cardData = CardData.get();
 
-  // Finally used the spread method properly!
-  // TIL pairs + spread = 'happiness'
+  // Collect all the cards in data form. We'll actually create the card
+  // objects in another loop so we can shuffle the data first; if we don't,
+  // the ids will always be the same which will make cheating easier.
   var cards = _.map(_.pairs(floorData), _.spread(function(name, amount) {
-    return _.times(amount, function() {
-      var data = _.find(cardData, 'name', name);
-      return new Card(data);
-    });
+    return _.times(amount, () => _.find(cardData, 'name', name));
   }));
 
-  // Return the flattened, shuffled card list.
-  return _.shuffle(_.flatten(cards));
+  // Return the flattened, shuffled cards.
+  return _.map(_.shuffle(_.flatten(cards)), data => new Card(data));
 };
 
 export default Card;

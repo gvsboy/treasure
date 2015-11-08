@@ -16,6 +16,7 @@
     border-radius: 0.4rem;
     transition: 0.6s;
     transform-style: preserve-3d;
+    background-color: #123456;
   }
 
   &:hover .flipper {
@@ -59,4 +60,8 @@
   position: absolute;
   top: 0;
   left: 0;
+
+  & .card {
+    position: absolute;
+  }
 }

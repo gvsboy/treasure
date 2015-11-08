@@ -10,6 +10,7 @@ export default function(ctrl) {
     ctrl.cards.map(function(c) {
       var vm = ctrl.cardsVM(c.id);
       return m.component(card, {
+        id: c.id,
         class: vm.state(),
         front: c.icon(),
         back: c.icon()
