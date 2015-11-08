@@ -1,11 +1,27 @@
 import m from 'mithril';
 import _ from 'lodash';
+import Velocity from 'velocity-animate';
 import cardView from './card';
 
-function position(id, card) {
+function animate(id, card) {
+
+  // Get a reference to the real card.
   var realCard = document.getElementById(id);
+
+  // First, let's position the animated card over the real card.
   card.style.top = realCard.offsetTop + 'px';
   card.style.left = realCard.offsetLeft + 'px';
+
+  var properties = {
+    top: '20px',
+    left: '100px'
+  };
+
+  var options = {
+    duration: 2000
+  };
+
+  Velocity(card, properties, options);
 }
 
 var card = {
@@ -21,7 +37,7 @@ export default function(ctrl, args) {
         class: 'matched',
         front: c.icon(),
         back: c.icon(),
-        config: _.partial(position, c.id)
+        config: _.partial(animate, c.id)
       })
     })
   ]);

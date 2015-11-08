@@ -25,7 +25,8 @@ var DEV_DIR = 'dist/dev/',
 
     libraries = [
       'lodash',
-      'mithril'
+      'mithril',
+      'velocity-animate'
     ];
 
 gulp.task('dev-libs', function() {
