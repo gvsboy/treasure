@@ -24,21 +24,17 @@ export default function(args) {
   // Select a card to match.
   this.select = function(evt) {
 
-    var card;
-
-    // If the board is locked, don't do anything.
-    if (locked) {
-      return;
-    }
-
     // Reference a card model object based on the click target.
-    card = getCardByDOMReference.call(this, evt.target);
+    var card = getCardByDOMReference.call(this, evt.target);
 
-    // If no card exists
+    // If the board is locked
+    // or no card exists
     // or the card is the previous card
     // or the card has already been taken
-    // abort.
-    if (!card || previousCard === card || card.taken()) {
+    // cancel the redraw due to the fired event
+    // and abort.
+    if (locked || !card || previousCard === card || card.taken()) {
+      m.redraw.strategy('none');
       return;
     }
 
