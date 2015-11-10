@@ -36,6 +36,10 @@ function animate(opts, cardEl) {
     return toPx(board.offsetLeft + (realCard.offsetWidth * 4.75));
   }
 
+  function getEndingLeft() {
+    return toPx(board.offsetLeft + (realCard.offsetWidth * 2.6));
+  }
+
   // Determine which outcome will happen while the background color
   // is solid white.
   function revealTreasure() {
@@ -84,7 +88,7 @@ function animate(opts, cardEl) {
 
   // And after a delay, smash them together
   Velocity(cardEl, {
-    left: toPx(board.offsetLeft + (realCard.offsetWidth * 2.6))
+    left: getEndingLeft()
   }, {
     duration: 600,
     delay: 2600,

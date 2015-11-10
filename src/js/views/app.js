@@ -5,6 +5,7 @@ import barView from './bar';
 import barController from '../controllers/bar';
 import animationView from './animation';
 import animationController from '../controllers/animation';
+import inventoryView from './inventory';
 
 // Board component.
 var board = {
@@ -18,6 +19,12 @@ var bar = {
   controller: barController
 };
 
+// Inventory component.
+var inventory = {
+  view: inventoryView
+};
+
+// Animations component.
 var animations = {
   view: animationView,
   controller: animationController
@@ -50,9 +57,7 @@ export default function(ctrl) {
         m('li', 'Defense: ' + player.defense())
       ]),
       m('hr'),
-      m('ul', player.items().map(item => {
-        return m('li', item.name());
-      }))
+      m.component(inventory, { items: player.items() })
     ]),
     m('div.column', [
       m.component(board, { player,  cards, boardVM }),

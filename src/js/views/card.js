@@ -1,10 +1,5 @@
 import m from 'mithril';
-
-function svg(name = 'clover-spiked') {
-  return m('svg',
-    m('use[href="#' + name + '"]')
-  );
-}
+import { svg } from '../helpers/view';
 
 export default function(ctrl, args) {
   return m('li.card', { id: args.id, class: args.class, config: args.config },
