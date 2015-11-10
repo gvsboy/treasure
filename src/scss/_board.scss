@@ -12,8 +12,14 @@
     }
   }
 
+  // Dim the board a bit while matched cards do their thing.
+  &.matched {
+    opacity: 0.2;
+  }
+
   // Don't show the pointer cursor if the board is locked?
-  &.locked .card {
+  &.matching .card,
+  &.matched .card {
     cursor: default;
   }
 }

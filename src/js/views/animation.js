@@ -3,6 +3,12 @@ import _ from 'lodash';
 import Velocity from 'velocity-animate';
 import cardView from './card';
 
+var PX = 'px';
+
+function toPx(value) {
+  return value + PX;
+}
+
 // Maybe this should be moved to the VM ...
 function animate(opts, cardEl) {
 
@@ -12,23 +18,20 @@ function animate(opts, cardEl) {
       flipper = cardEl.querySelector('.flipper');
 
   // First, let's position the animated card over the real card.
-  cardEl.style.top = realCard.offsetTop + 'px';
-  cardEl.style.left = realCard.offsetLeft + 'px';
-
-  // Set the board opacity a bit lower to highlight the animated cards.
-  board.style.opacity = 0.2;
+  cardEl.style.top = toPx(realCard.offsetTop);
+  cardEl.style.left = toPx(realCard.offsetLeft);
 
   // Configure the placement and grow properties. Different lefts for each card.
   var properties = {
-    top: (board.offsetTop + ((board.offsetHeight / 2) - (realCard.offsetHeight))) + 'px',
+    top: toPx(board.offsetTop + ((board.offsetHeight / 2) - (realCard.offsetHeight))),
     width: '6em',
     height: '6em'
   };
   if (opts.index === 0) {
-    properties.left = (board.offsetLeft + (realCard.offsetWidth / 2)) + 'px';
+    properties.left = toPx(board.offsetLeft + (realCard.offsetWidth / 2));
   }
   else {
-    properties.left = (board.offsetLeft + (realCard.offsetWidth * 4.75)) + 'px';
+    properties.left = toPx(board.offsetLeft + (realCard.offsetWidth * 4.75));
   }
 
   function revealTreasure() {
@@ -41,7 +44,13 @@ function animate(opts, cardEl) {
       backgroundColor: '#123456',
       fill: '#ccc'
     }, {
-      duration: 200
+      duration: 200,
+      complete: function() {
+        opts.cardVM.state('taken');
+        opts.boardVM.state('');
+        opts.player.takeCard(opts.card);
+        m.redraw();
+      }
     });
 
   }
@@ -62,7 +71,7 @@ function animate(opts, cardEl) {
 
   // And after a delay, smash them together
   Velocity(cardEl, {
-    left: (board.offsetLeft + (realCard.offsetWidth * 2.6)) + 'px'
+    left: toPx(board.offsetLeft + (realCard.offsetWidth * 2.6))
   }, {
     duration: 600,
     delay: 2600,
@@ -95,7 +104,13 @@ export default function(ctrl, args) {
         class: 'matched',
         front: card.icon(),
         back: card.icon(),
-        config: _.partial(animate, { card, index })
+        config: _.partial(animate, {
+          card,
+          index,
+          player: args.player,
+          cardVM: ctrl.cardsVM(card.id),
+          boardVM: args.boardVM
+        })
       })
     })
   ]);

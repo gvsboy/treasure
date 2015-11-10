@@ -1,7 +1,6 @@
 import m from 'mithril';
 import _ from 'lodash';
 import cardsVM from '../vm/cards';
-import BoardVM from '../vm/board';
 
 // not good
 function getCardByDOMReference(el) {
@@ -18,11 +17,11 @@ export default function(args) {
   // Fetch new cards for the passed floor.
   this.cards = args.cards;
 
+  // Set the board view-model;
+  this.boardVM = args.boardVM
+
   // Set the cards view-model.
   this.cardsVM = cardsVM;
-
-  // Set the board view-model;
-  this.boardVM = new BoardVM();
 
   // Select a card to match.
   this.select = function(evt) {
@@ -36,7 +35,7 @@ export default function(args) {
     // or the card has already been taken
     // cancel the redraw due to the fired event
     // and abort.
-    if (this.boardVM.locked() || !card || previousCard === card || card.taken()) {
+    if (this.boardVM.isLocked() || !card || previousCard === card || card.taken()) {
       m.redraw.strategy('none');
       return;
     }
@@ -48,7 +47,7 @@ export default function(args) {
     if (previousCard) {
 
       // Lock it up.
-      this.boardVM.locked(true);
+      this.boardVM.state('matching');
 
       // If types match, things are looking good. Let's try and dig deeper.
       if (previousCard.type() === card.type() && previousCard.name() === card.name()) {
@@ -57,6 +56,7 @@ export default function(args) {
         _.delay(() => {
           this.cardsVM(card.id).state('matched');
           this.cardsVM(previousCard.id).state('matched');
+          this.boardVM.state('matched');
           card.taken(true);
           previousCard.taken(true);
           previousCard = null;
@@ -83,7 +83,7 @@ export default function(args) {
           this.cardsVM(card.id).state('');
           this.cardsVM(previousCard.id).state('');
           previousCard = null;
-          this.boardVM.locked(false);
+          this.boardVM.state('');
           player.updateEnergy(-1);
           m.redraw();
         }, 1500);
