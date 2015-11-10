@@ -63,17 +63,6 @@ export default function(args) {
           player.updateEnergy(-1);
           m.redraw();
         }, 1000);
-
-        /* TAKE THE CARD IMMEDIATELY:
-          _.delay(() => {
-            player.takeCard(card);
-            previousCard.taken(true);
-            previousCard = null;
-            locked = false;
-            player.updateEnergy(-1);
-            m.redraw();
-          }, 1500);
-        */
       }
 
       // Reset and restore board functionality.

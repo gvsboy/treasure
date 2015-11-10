@@ -30,7 +30,6 @@ function Player() {
 Player.prototype = {
 
   takeCard: function(card) {
-    card.taken(true);
     card.activate(this);
   },
 

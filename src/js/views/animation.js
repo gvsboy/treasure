@@ -3,41 +3,42 @@ import _ from 'lodash';
 import Velocity from 'velocity-animate';
 import cardView from './card';
 
+//--------------------------------------------------------------------------------
+// All this crap needs to go somewhere else!!!
+
 var PX = 'px';
 
 function toPx(value) {
   return value + PX;
 }
 
+// Place one element directly over the other.
+function stack(topEl, bottomEl) {
+  topEl.style.top = toPx(bottomEl.offsetTop);
+  topEl.style.left = toPx(bottomEl.offsetLeft);
+}
+
+
+
 // Maybe this should be moved to the VM ...
 function animate(opts, cardEl) {
 
-  // Get a reference to the real card.
-  var realCard = document.getElementById(opts.card.id),
-      board = document.getElementById('board'),
-      flipper = cardEl.querySelector('.flipper');
-
-  // First, let's position the animated card over the real card.
-  cardEl.style.top = toPx(realCard.offsetTop);
-  cardEl.style.left = toPx(realCard.offsetLeft);
-
-  // Configure the placement and grow properties. Different lefts for each card.
-  var properties = {
-    top: toPx(board.offsetTop + ((board.offsetHeight / 2) - (realCard.offsetHeight))),
-    width: '6em',
-    height: '6em'
-  };
-  if (opts.index === 0) {
-    properties.left = toPx(board.offsetLeft + (realCard.offsetWidth / 2));
-  }
-  else {
-    properties.left = toPx(board.offsetLeft + (realCard.offsetWidth * 4.75));
+  // Retrieves the correct top property value based on the board.
+  function getTop() {
+    return toPx(board.offsetTop + ((board.offsetHeight / 2) - (realCard.offsetHeight)));
   }
 
+  // Set initial left placement. Different for each card in the matched pair.
+  function getStartingLeft(isFirst) {
+    if (isFirst) {
+      return toPx(board.offsetLeft + (realCard.offsetWidth / 2));
+    }
+    return toPx(board.offsetLeft + (realCard.offsetWidth * 4.75));
+  }
+
+  // Determine which outcome will happen while the background color
+  // is solid white.
   function revealTreasure() {
-
-    // Determine which outcome will happen while the background color
-    // is solid white.
 
     // Now change it back and continue with the collection process.
     Velocity(flipper, {
@@ -52,11 +53,23 @@ function animate(opts, cardEl) {
         m.redraw();
       }
     });
-
   }
 
-  // Put the cards in their places.
-  Velocity(cardEl, properties, {
+  // Get a reference to the real card.
+  var realCard = document.getElementById(opts.card.id),
+      board = document.getElementById('board'),
+      flipper = cardEl.querySelector('.flipper');
+
+  // First, let's position the animated card over the real card.
+  stack(cardEl, realCard);
+
+  // Put the cards in their initial places.
+  Velocity(cardEl, {
+    top: getTop(),
+    left: getStartingLeft(opts.index === 0),
+    width: '6em',
+    height: '6em'
+  }, {
     duration: 1000
   });
 
@@ -85,8 +98,10 @@ function animate(opts, cardEl) {
       });
     }
   });
-
 }
+
+// End crap that needs to go elsewhere
+// ----------------------------------------------------------------------------
 
 var cardComponent = {
   view: cardView
