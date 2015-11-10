@@ -1,6 +1,21 @@
 #board {
   width: 28rem;
   transition: 1s;
+
+  // Cards should have the pointer cursor.
+  .card {
+    cursor: pointer;
+
+    // Hide cards that are matched or taken.
+    &.taken, &.matched {
+      visibility: hidden;
+    }
+  }
+
+  // Don't show the pointer cursor if the board is locked?
+  &.locked .card {
+    cursor: default;
+  }
 }
 
 .card {
@@ -8,7 +23,6 @@
   width: 4rem;
   height: 4rem;
   margin: 0 0.6rem 0.6rem 0;
-  cursor: pointer;
   color: #666;
   perspective: 1000;
 
@@ -30,10 +44,6 @@
 
   &.selected .flipper {
     transform: rotateY(180deg);
-  }
-
-  &.taken {
-    opacity: 0.1;
   }
 
   .front,

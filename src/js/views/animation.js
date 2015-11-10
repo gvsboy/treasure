@@ -4,16 +4,16 @@ import Velocity from 'velocity-animate';
 import cardView from './card';
 
 // Maybe this should be moved to the VM ...
-function animate(opts, card) {
+function animate(opts, cardEl) {
 
   // Get a reference to the real card.
   var realCard = document.getElementById(opts.card.id),
       board = document.getElementById('board'),
-      flipper = card.querySelector('.flipper');
+      flipper = cardEl.querySelector('.flipper');
 
   // First, let's position the animated card over the real card.
-  card.style.top = realCard.offsetTop + 'px';
-  card.style.left = realCard.offsetLeft + 'px';
+  cardEl.style.top = realCard.offsetTop + 'px';
+  cardEl.style.left = realCard.offsetLeft + 'px';
 
   // Set the board opacity a bit lower to highlight the animated cards.
   board.style.opacity = 0.2;
@@ -47,12 +47,12 @@ function animate(opts, card) {
   }
 
   // Put the cards in their places.
-  Velocity(card, properties, {
+  Velocity(cardEl, properties, {
     duration: 1000
   });
 
   // All the while, spin and spin.
-  Velocity(card, {
+  Velocity(cardEl, {
     rotateY: '1440deg'
   }, {
     duration: 3000,
@@ -61,7 +61,7 @@ function animate(opts, card) {
   });
 
   // And after a delay, smash them together
-  Velocity(card, {
+  Velocity(cardEl, {
     left: (board.offsetLeft + (realCard.offsetWidth * 2.6)) + 'px'
   }, {
     duration: 600,

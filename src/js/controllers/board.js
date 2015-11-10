@@ -1,6 +1,7 @@
 import m from 'mithril';
 import _ from 'lodash';
 import cardsVM from '../vm/cards';
+import BoardVM from '../vm/board';
 
 // not good
 function getCardByDOMReference(el) {
@@ -12,7 +13,6 @@ function getCardByDOMReference(el) {
 export default function(args) {
 
   var player = args.player,
-      locked = false,
       previousCard;
 
   // Fetch new cards for the passed floor.
@@ -20,6 +20,9 @@ export default function(args) {
 
   // Set the cards view-model.
   this.cardsVM = cardsVM;
+
+  // Set the board view-model;
+  this.boardVM = new BoardVM();
 
   // Select a card to match.
   this.select = function(evt) {
@@ -33,7 +36,7 @@ export default function(args) {
     // or the card has already been taken
     // cancel the redraw due to the fired event
     // and abort.
-    if (locked || !card || previousCard === card || card.taken()) {
+    if (this.boardVM.locked() || !card || previousCard === card || card.taken()) {
       m.redraw.strategy('none');
       return;
     }
@@ -45,7 +48,7 @@ export default function(args) {
     if (previousCard) {
 
       // Lock it up.
-      locked = true;
+      this.boardVM.locked(true);
 
       // If types match, things are looking good. Let's try and dig deeper.
       if (previousCard.type() === card.type() && previousCard.name() === card.name()) {
@@ -54,14 +57,16 @@ export default function(args) {
         _.delay(() => {
           this.cardsVM(card.id).state('matched');
           this.cardsVM(previousCard.id).state('matched');
+          card.taken(true);
+          previousCard.taken(true);
+          previousCard = null;
+          player.updateEnergy(-1);
           m.redraw();
         }, 1000);
 
         /* TAKE THE CARD IMMEDIATELY:
           _.delay(() => {
             player.takeCard(card);
-            card.selected(false);
-            previousCard.selected(false);
             previousCard.taken(true);
             previousCard = null;
             locked = false;
@@ -78,7 +83,7 @@ export default function(args) {
           this.cardsVM(card.id).state('');
           this.cardsVM(previousCard.id).state('');
           previousCard = null;
-          locked = false;
+          this.boardVM.locked(false);
           player.updateEnergy(-1);
           m.redraw();
         }, 1500);
