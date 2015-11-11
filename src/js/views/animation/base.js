@@ -1,32 +1,9 @@
 import m from 'mithril';
 import _ from 'lodash';
 import Velocity from 'velocity-animate';
+import { toPx, stack, getTop, getEndingLeft } from '../../helpers/animation';
 import matchedView from './matched';
 import outcomeView from './outcome';
-
-//--------------------------------------------------------------------------------
-// All this crap needs to go somewhere else!!!
-
-var PX = 'px';
-
-function toPx(value) {
-  return value + PX;
-}
-
-// Place one element directly over the other.
-function stack(topEl, bottomEl) {
-  topEl.style.top = toPx(bottomEl.offsetTop);
-  topEl.style.left = toPx(bottomEl.offsetLeft);
-}
-
-// Retrieves the correct top property value based on the board and card.
-function getTop(board, card) {
-  return toPx(board.offsetTop + ((board.offsetHeight / 2) - (card.offsetHeight)));
-}
-
-function getEndingLeft(board, card) {
-  return toPx(board.offsetLeft + (card.offsetWidth * 2.6));
-}
 
 //--------------------------------------------------------------------------------
 // animate()
@@ -40,30 +17,6 @@ function animate(opts, cardEl) {
       return toPx(board.offsetLeft + (realCard.offsetWidth / 2));
     }
     return toPx(board.offsetLeft + (realCard.offsetWidth * 4.75));
-  }
-
-  // Determine which outcome will happen while the background color
-  // is solid white.
-  function revealTreasure() {
-
-    opts.cardVM.state('taken');
-    m.endComputation();
-
-    // Now change it back and continue with the collection process.
-    /*
-    Velocity(flipper, {
-      backgroundColor: '#123456',
-      fill: '#ccc'
-    }, {
-      duration: 200,
-      complete: function() {
-        opts.cardVM.state('taken');
-        opts.boardVM.state('');
-        opts.player.takeCard(opts.card);
-        m.endComputation();
-      }
-    });
-    */
   }
 
   // Get a reference to the real card.
@@ -102,26 +55,22 @@ function animate(opts, cardEl) {
     duration: 600,
     delay: 2600,
     queue: false,
+
+    // Flash of white and afterwards the outcome will be revealed.
     complete: function() {
       Velocity(flipper, {
         backgroundColor: '#fff'
       }, {
         duration: 200,
-        complete: revealTreasure
+
+        // Set the taken flags to trigger the outcome view.
+        complete: function() {
+          opts.cardVM.state('taken');
+          m.endComputation();
+        }
       });
     }
   });
-}
-
-//--------------------------------------------------------------------------------
-// animateOutcome()
-function animateOutcome(opts, cardEl) {
-  var outcomeCard = opts.boardVM.outcomeCard();
-
-  var board = document.getElementById('board');
-
-  cardEl.style.top = getTop(board, cardEl);
-  cardEl.style.left = getEndingLeft(board, cardEl);
 }
 
 // End crap that needs to go elsewhere
@@ -147,7 +96,7 @@ export default function(ctrl, args) {
   else if (args.boardVM.outcomeCard()) {
     component = m.component(
       { view: outcomeView },
-      { player: args.player, boardVM: args.boardVM, animate: animateOutcome }
+      { player: args.player, boardVM: args.boardVM }
     );
   }
 

@@ -18,7 +18,7 @@ export default function(player) {
   // If your attempts are lower than the trap's power,
   // you are affected.
   if (roll + bonus < data.power) {
-    _.forEach(_.keys(data.result), (method) => {
+    _.forEach(_.keys(data.result), method => {
       var roll = Dice.roll(data.result[method], devastating);
       player[method](-roll);
     });

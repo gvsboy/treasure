@@ -6,6 +6,7 @@ function Player() {
       energy = 20;
 
   this.floor = m.prop(1);
+  this.turns = m.prop(0);
 
   this.health = m.prop(health);
   this.maxHealth = m.prop(health);
@@ -28,6 +29,10 @@ function Player() {
 }
 
 Player.prototype = {
+
+  incrementTurn: function() {
+    this.turns(this.turns() + 1);
+  },
 
   takeCard: function(card) {
     card.activate(this);

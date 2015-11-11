@@ -41,6 +41,8 @@ export default function(args) {
       return;
     }
 
+    player.incrementTurn();
+
     // A card exists. Select it.
     this.cardsVM(card.id).state('selected');
 
