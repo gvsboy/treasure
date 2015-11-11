@@ -54,7 +54,7 @@ function animate(opts, cardEl) {
         opts.cardVM.state('taken');
         opts.boardVM.state('');
         opts.player.takeCard(opts.card);
-        m.redraw();
+        m.endComputation();
       }
     });
   }
@@ -63,6 +63,9 @@ function animate(opts, cardEl) {
   var realCard = document.getElementById(opts.card.id),
       board = document.getElementById('board'),
       flipper = cardEl.querySelector('.flipper');
+
+  // Start a computation.
+  m.startComputation();
 
   // First, let's position the animated card over the real card.
   stack(cardEl, realCard);
