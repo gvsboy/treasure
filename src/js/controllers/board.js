@@ -1,6 +1,7 @@
 import m from 'mithril';
 import _ from 'lodash';
 import cardsVM from '../vm/cards';
+import Card from '../models/card';
 
 // not good
 function getCardByDOMReference(el) {
@@ -54,21 +55,38 @@ export default function(args) {
 
         // Set a class to flag capture animation.
         _.delay(() => {
+
+          // Setting to matched will trigger the animation.
           this.cardsVM(card.id).state('matched');
           this.cardsVM(previousCard.id).state('matched');
+
+          // We need logic to determine which card is actually selected.
+          // For now, let's just hardcode it.
+          this.boardVM.outcomeCard(Card.getByName(card.name()));
+
+          // The board fades out a bit and is still locked.
           this.boardVM.state('matched');
+
+          // Both cards are taken.
           card.taken(true);
           previousCard.taken(true);
+
+          // Reset the previous card for the next go round.
           previousCard = null;
+
+          // Turns take energy!
           player.updateEnergy(-1);
+
+          // And ... go!
           m.redraw();
         }, 1000);
       }
 
       // Reset and restore board functionality.
-      // This is slightly cheesey but works!
       else {
         _.delay(() => {
+
+          // No state = normal state.
           this.cardsVM(card.id).state('');
           this.cardsVM(previousCard.id).state('');
           previousCard = null;

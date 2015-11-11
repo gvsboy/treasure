@@ -2,6 +2,7 @@ import m from 'mithril';
 
 function Board() {
   this.state = m.prop('');
+  this.outcomeCard = m.prop(null);
 }
 
 Board.prototype = {

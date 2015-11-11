@@ -84,5 +84,13 @@
 
   & .card {
     position: absolute;
+
+    &.outcome {
+      transform: scale(1.5);
+      border: 0.2rem solid #000;
+      border-radius: 0.4rem;
+      background-color: #123456;
+      fill: #ccc;
+    }
   }
 }

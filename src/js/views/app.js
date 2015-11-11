@@ -3,7 +3,7 @@ import boardView from './board';
 import boardController from '../controllers/board';
 import barView from './bar';
 import barController from '../controllers/bar';
-import animationView from './animation';
+import animationView from './animation/base';
 import animationController from '../controllers/animation';
 import inventoryView from './inventory';
 

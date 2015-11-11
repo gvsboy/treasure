@@ -25,11 +25,13 @@ Card.prototype = {
 
 };
 
+// Cache card data for static methods. Should move this elsewhere.
+var cardData = CardData.get();
+
 Card.get = function(floor) {
 
   // Retrieve the card data to generate a floor.
   var floorData = FloorData.get(floor);
-  var cardData = CardData.get();
 
   // Collect all the cards in data form. We'll actually create the card
   // objects in another loop so we can shuffle the data first; if we don't,
@@ -40,6 +42,10 @@ Card.get = function(floor) {
 
   // Return the flattened, shuffled cards.
   return _.map(_.shuffle(_.flatten(cards)), data => new Card(data));
+};
+
+Card.getByName = function(name) {
+  return new Card(_.find(cardData, 'name', name));
 };
 
 export default Card;
