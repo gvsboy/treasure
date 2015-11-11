@@ -1,8 +1,8 @@
 import m from 'mithril';
 import _ from 'lodash';
 import Velocity from 'velocity-animate';
-import cardView from '../card';
-import { svg } from '../../helpers/view';
+import matchedView from './matched';
+import outcomeView from './outcome';
 
 //--------------------------------------------------------------------------------
 // All this crap needs to go somewhere else!!!
@@ -127,48 +127,29 @@ function animateOutcome(opts, cardEl) {
 // End crap that needs to go elsewhere
 // ----------------------------------------------------------------------------
 
-var cardComponent = {
-  view: cardView
-};
-
 export default function(ctrl, args) {
 
   // What content should we put in there?
-  var content;
+  var component;
 
   // Collect all the matched cards. There should be two if any.
   var matchedCards = _.filter(ctrl.cards, card => ctrl.cardsVM(card.id).isMatched());
 
   // if there are matched cards, show them and begin that animation.
   if (!_.isEmpty(matchedCards)) {
-    content = _.map(matchedCards, (card, index) => {
-      return m.component(cardComponent, {
-        id: 'animate-' + card.id,
-        class: 'matched',
-        front: card.icon(),
-        back: card.icon(),
-        config: _.partial(animate, {
-          card,
-          index,
-          player: args.player,
-          cardVM: ctrl.cardsVM(card.id),
-          boardVM: args.boardVM
-        })
-      })
-    });
+    component = m.component(
+      { view: matchedView },
+      { cards: matchedCards, cardsVM: ctrl.cardsVM, animate }
+    );
   }
 
   // else, if there is an outcome card, reveal that instead!
   else if (args.boardVM.outcomeCard()) {
-    content = m('div.card.outcome', { config: _.partial(animateOutcome, {
-      player: args.player,
-      boardVM: args.boardVM
-    })}, [
-      svg(args.boardVM.outcomeCard().icon())
-    ]);
+    component = m.component(
+      { view: outcomeView },
+      { player: args.player, boardVM: args.boardVM, animate: animateOutcome }
+    );
   }
 
-  return m('div.animations', [
-    content
-  ]);
+  return m('div.animations', component);
 };
