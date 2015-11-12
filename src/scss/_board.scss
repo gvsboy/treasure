@@ -1,5 +1,5 @@
 #board {
-  width: 28rem;
+  width: 27.6rem;
   transition: 1s;
 
   // Cards should have the pointer cursor.
@@ -82,15 +82,32 @@
   top: 0;
   left: 0;
 
-  & .card {
+  .card {
     position: absolute;
+  }
 
-    &.outcome {
+  .outcome {
+
+    .card {
       transform: scale(1.5);
       border: 0.2rem solid #000;
       border-radius: 0.4rem;
       background-color: #123456;
       fill: #ccc;
     }
+
+    .info {
+      position: absolute;
+      text-align: center;
+    }
+
+    .gold {
+      margin: 0;
+      padding: 0;
+      font-size: 2em;
+      color: gold;
+    }
   }
 }
+
+

@@ -20,7 +20,7 @@ Card.prototype = {
    */
   activate: function(player) {
     var mechanic = Mechanics.get(this);
-    mechanic(player);
+    return mechanic(player);
   }
 
 };

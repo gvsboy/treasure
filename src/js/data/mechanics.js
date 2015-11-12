@@ -29,27 +29,27 @@ export const monster = {
 export const treasure = {
 
   "Bag of Coins": {
-    value: 100
+    gold: 100
   },
 
   "Big Bag of Coins": {
-    value: 300
+    gold: 300
   },
 
   "Stack of Coins": {
-    value: 250
+    gold: 250
   },
 
   "Tall Stack of Coins": {
-    value: 750
+    gold: 750
   },
 
   "Ruby": {
-    value: 1000
+    gold: 1000
   },
 
   "Shimmering Ruby": {
-    value: 3000
+    gold: 3000
   }
 
 };

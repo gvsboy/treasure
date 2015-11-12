@@ -42,7 +42,7 @@ export default function(ctrl) {
         m('li', 'Floor: ' + player.floor()),
         m('li', 'Level: ' + player.level()),
         m('li', 'Exp: ' + player.exp()),
-        m('li', 'Gold: ' + player.gold())
+        m('li#player-gold', 'Gold: ' + player.gold())
       ]),
       m('hr'),
       m('ul', [

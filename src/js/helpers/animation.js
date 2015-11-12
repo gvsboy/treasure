@@ -1,4 +1,19 @@
+import _ from 'lodash';
+import Velocity from 'velocity-animate';
+
 var PX = 'px';
+
+function dimensionPropertyGetterSetter(prop, el, value) {
+  if (value) {
+    el.style[prop] = toPx(value);
+  }
+  return el[`offset${_.capitalize(prop)}`];
+}
+
+export var width = _.partial(dimensionPropertyGetterSetter, 'width');
+export var height = _.partial(dimensionPropertyGetterSetter, 'height');
+export var top = _.partial(dimensionPropertyGetterSetter, 'top');
+export var left = _.partial(dimensionPropertyGetterSetter, 'left');
 
 export function toPx(value) {
   return value + PX;
@@ -6,15 +21,21 @@ export function toPx(value) {
 
 // Place one element directly over the other.
 export function stack(topEl, bottomEl) {
-  topEl.style.top = toPx(bottomEl.offsetTop);
-  topEl.style.left = toPx(bottomEl.offsetLeft);
+  top(topEl, top(bottomEl));
+  left(topEl, left(bottomEl));
 }
 
-// Retrieves the correct top property value based on the board and card.
+export function under(underEl, overEl) {
+  top(underEl, top(overEl) + height(overEl));
+
+}
+
+// Retrieves the correct starting top property value based on the board and card.
 export function getTop(board, card) {
-  return toPx(board.offsetTop + ((board.offsetHeight / 2) - (card.offsetHeight)));
+  return toPx(top(board) + ((height(board) / 2) - height(card)));
 }
 
 export function getEndingLeft(board, card) {
-  return toPx(board.offsetLeft + (card.offsetWidth * 2.6));
+  return toPx(left(board) + (width(card) * 2.6));
 }
+
