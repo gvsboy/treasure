@@ -101,4 +101,4 @@ export default function(ctrl, args) {
   }
 
   return m('div.animations', component);
-};
+}

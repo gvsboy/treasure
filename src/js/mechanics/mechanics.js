@@ -3,6 +3,7 @@ import TreasureMechanics from './treasure';
 import TrapMechanics from './trap';
 import FoodMechanics from './food';
 import ItemMechanics from './item';
+import MonsterMechanics from './monster';
 
 var mechanicsMap = {
   treasure: TreasureMechanics,
@@ -10,7 +11,8 @@ var mechanicsMap = {
   food: FoodMechanics,
   weapon: ItemMechanics,
   armor: ItemMechanics,
-  magic: ItemMechanics
+  magic: ItemMechanics,
+  monster: MonsterMechanics
 };
 
 export default {

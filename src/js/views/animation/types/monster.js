@@ -7,20 +7,20 @@ import view from './base';
 
 function animate(el, isInit, context) {
 
-  // Reference the gold status, show the card and information.
-  var goldStatus = document.getElementById(DOM.ID.GOLD_STATUS),
+  // Reference the energy bar, show the card and information.
+  var healthBar = document.querySelector(DOM.CLASS.HEALTH_BAR),
       card = A.getAndRevealCardAndInfo(el).card;
 
   // Now, move the card to the end of the energy bar.
   A.leapTo(card, {
-    top: A.top(goldStatus),
-    left: A.left(goldStatus),
+    top: A.top(healthBar),
+    left: A.left(healthBar) + A.width(healthBar),
     callback: m.redraw
   });
 }
 
 export default function(ctrl, args) {
   return m.component({ view }, { card: ctrl.card, animate, content: [
-    m('li.gold', `${ctrl.data.gold} Gold`)
+    m('li.damage', `${ctrl.data.damage} Damage`)
   ]});
 }

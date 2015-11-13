@@ -1,5 +1,8 @@
+import m from 'mithril';
 import _ from 'lodash';
 import Velocity from 'velocity-animate';
+
+import DOM from '../config/dom';
 
 var PX = 'px';
 
@@ -27,7 +30,6 @@ export function stack(topEl, bottomEl) {
 
 export function under(underEl, overEl) {
   top(underEl, top(overEl) + height(overEl));
-
 }
 
 /**
@@ -40,8 +42,6 @@ export function under(underEl, overEl) {
  * @param  {Object} opts.callback [description]
  */
 export function leapTo(el, opts) {
-  console.log(opts.top);
-  console.log(opts.left);
   Velocity(el, {
     top: opts.top,
     left: opts.left,
@@ -51,6 +51,49 @@ export function leapTo(el, opts) {
     duration: 1000
   })
   .then(opts.callback);
+}
+
+export function getAndRevealCardAndInfo(el) {
+
+  // Get references to all the objects we need.
+  var board = document.getElementById(DOM.ID.BOARD),
+      card = el.querySelector(DOM.CLASS.CARD),
+      info = el.querySelector(DOM.CLASS.INFO);
+
+  // Center the card.
+  card.style.top = getTop(board, card);
+  card.style.left = getEndingLeft(board, card);
+
+  // Place the info panel under the card.
+  under(info, card);
+  left(info, left(board));
+  width(info, width(board));
+
+  // Slide the info panel into view.
+  info.style.display = 'none';
+  Velocity(info, 'slideDown');
+
+  // And slide up the info panel to hide it.
+  Velocity(info, 'slideUp', {
+    delay: 1000
+  });
+
+  return { card, info };
+}
+
+// Currently for items only, but this boilerplate would work for other types too!!
+export function revealToInventory(el, isInit, context) {
+
+  // Reference the inventory list, show the card and information.
+  var inventory = document.getElementById(DOM.ID.INVENTORY),
+      card = getAndRevealCardAndInfo(el).card;
+
+  // Now, move the card to the end of the inventory list.
+  leapTo(card, {
+    top: top(inventory) + height(inventory),
+    left: left(inventory),
+    callback: m.redraw
+  });
 }
 
 // THESE HAVE SHITTY NAMES===
@@ -74,5 +117,6 @@ export default {
   under,
   leapTo,
   getTop,
-  getEndingLeft
+  getEndingLeft,
+  getAndRevealCardAndInfo
 }

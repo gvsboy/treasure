@@ -45,7 +45,7 @@ export default function(ctrl) {
         m('li', 'Floor: ' + player.floor()),
         m('li', 'Level: ' + player.level()),
         m('li', 'Exp: ' + player.exp()),
-        m(`li#${DOM.ID.STATUS_GOLD}`, 'Gold: ' + player.gold())
+        m(`li#${DOM.ID.GOLD_STATUS}`, 'Gold: ' + player.gold())
       ]),
       m('hr'),
       m('ul', [
