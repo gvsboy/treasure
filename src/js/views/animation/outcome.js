@@ -1,24 +1,17 @@
 import m from 'mithril';
-import treasureView from './types/treasure';
+import controller from '../../controllers/animation/type';
+import treasure from './types/treasure';
+import food from './types/food';
 
-// Now change it back and continue with the collection process.
-/*
-Velocity(flipper, {
-  backgroundColor: '#123456',
-  fill: '#ccc'
-}, {
-  duration: 200,
-  complete: function() {
-    opts.boardVM.state('');
-    opts.player.takeCard(opts.card);
-    m.endComputation();
-  }
-});
-*/
-
-
+var typeMap = {
+  treasure,
+  food
+};
 
 export default function(ctrl, args) {
-  // Calculate which view to use. Testing with treasureView right meow.
-  return m.component({ view: treasureView }, { player: args.player, boardVM: args.boardVM });
+
+  var card = args.boardVM.outcomeCard(),
+      view = typeMap[card.type()];
+
+  return m.component({ view, controller }, { player: args.player, boardVM: args.boardVM });
 };

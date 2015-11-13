@@ -7,4 +7,5 @@ export default function(player) {
     icon: this.icon()
   });
   player.addItem(item);
+  return item;
 };

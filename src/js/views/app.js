@@ -1,4 +1,7 @@
 import m from 'mithril';
+
+import DOM from '../config/dom';
+
 import boardView from './board';
 import boardController from '../controllers/board';
 import barView from './bar';
@@ -42,7 +45,7 @@ export default function(ctrl) {
         m('li', 'Floor: ' + player.floor()),
         m('li', 'Level: ' + player.level()),
         m('li', 'Exp: ' + player.exp()),
-        m('li#player-gold', 'Gold: ' + player.gold())
+        m(`li#${DOM.ID.STATUS_GOLD}`, 'Gold: ' + player.gold())
       ]),
       m('hr'),
       m('ul', [

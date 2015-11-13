@@ -30,6 +30,31 @@ export function under(underEl, overEl) {
 
 }
 
+/**
+ * [leapTo description]
+ * @param  {Object} el [description]
+ * @param  {Object} opts [description]
+ * @param  {Object} opts.el [description]
+ * @param  {Object} opts.top [description]
+ * @param  {Object} opts.left [description]
+ * @param  {Object} opts.callback [description]
+ */
+export function leapTo(el, opts) {
+  console.log(opts.top);
+  console.log(opts.left);
+  Velocity(el, {
+    top: opts.top,
+    left: opts.left,
+    scale: [ 0, 1.5 ]
+  }, {
+    delay: 1500,
+    duration: 1000
+  })
+  .then(opts.callback);
+}
+
+// THESE HAVE SHITTY NAMES===
+
 // Retrieves the correct starting top property value based on the board and card.
 export function getTop(board, card) {
   return toPx(top(board) + ((height(board) / 2) - height(card)));
@@ -39,3 +64,15 @@ export function getEndingLeft(board, card) {
   return toPx(left(board) + (width(card) * 2.6));
 }
 
+export default {
+  width,
+  height,
+  top,
+  left,
+  toPx,
+  stack,
+  under,
+  leapTo,
+  getTop,
+  getEndingLeft
+}
