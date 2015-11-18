@@ -1,5 +1,9 @@
 import m from 'mithril';
 import _ from 'lodash';
+
+import STATES from '../config/states';
+import Matcher from '../services/matcher';
+
 import cardsVM from '../vm/cards';
 import Card from '../models/card';
 
@@ -13,13 +17,13 @@ function getCardByDOMReference(el) {
 export default function(args) {
 
   var player = args.player,
-      previousCard;
+      matcher = new Matcher(cardsVM);
 
   // Fetch new cards for the passed floor.
   this.cards = args.cards;
 
   // Set the board view-model;
-  this.boardVM = args.boardVM
+  this.boardVM = args.boardVM;
 
   // Set the cards view-model.
   this.cardsVM = cardsVM;
@@ -28,80 +32,40 @@ export default function(args) {
   this.select = function(evt) {
 
     // Reference a card model object based on the click target.
-    var card = getCardByDOMReference.call(this, evt.target);
+    var card = getCardByDOMReference.call(this, evt.target),
+        boardVM = this.boardVM;
 
-    // If the board is locked
-    // or no card exists
-    // or the card is the previous card
-    // or the card has already been taken
-    // cancel the redraw due to the fired event
-    // and abort.
-    if (this.boardVM.isLocked() || !card || previousCard === card || card.taken()) {
+    // If the board is locked the card is not successfully added
+    // to the matcher, abort!
+    if (boardVM.isLocked() || !matcher.add(card)) {
       m.redraw.strategy('none');
       return;
     }
 
-    player.incrementTurn();
+    // If there are enough cards for a match (probably 2),
+    // let's generate an outcome.
+    if (matcher.isReady()) {
 
-    // A card exists. Select it.
-    this.cardsVM(card.id).state('selected');
+      // Lock the board UI up.
+      boardVM.state(STATES.MATCHING);
 
-    // A card was already selected. What up.
-    if (previousCard) {
+      _.delay(() => {
 
-      // Lock it up.
-      this.boardVM.state('matching');
+        // If there's a match, the board fades out a bit and is still locked.
+        if (boardVM.outcomeCard(matcher.generateOutcome())) {
+          boardVM.state(STATES.MATCHED);
+        }
 
-      // If types match, things are looking good. Let's try and dig deeper.
-      if (previousCard.type() === card.type() && previousCard.name() === card.name()) {
+        // Else, it's a no-go.
+        else {
+          boardVM.state(STATES.DEFAULT);
+        }
 
-        // Set a class to flag capture animation.
-        _.delay(() => {
+        player.incrementTurn();
+        player.updateEnergy(-1);
+        m.redraw();
 
-          // Setting to matched will trigger the animation.
-          this.cardsVM(card.id).state('matched');
-          this.cardsVM(previousCard.id).state('matched');
-
-          // We need logic to determine which card is actually selected.
-          // For now, let's just hardcode it.
-          this.boardVM.outcomeCard(Card.getByName(card.name()));
-
-          // The board fades out a bit and is still locked.
-          this.boardVM.state('matched');
-
-          // Both cards are taken.
-          card.taken(true);
-          previousCard.taken(true);
-
-          // Reset the previous card for the next go round.
-          previousCard = null;
-
-          // Turns take energy!
-          player.updateEnergy(-1);
-
-          // And ... go!
-          m.redraw();
-        }, 1000);
-      }
-
-      // Reset and restore board functionality.
-      else {
-        _.delay(() => {
-
-          // No state = normal state.
-          this.cardsVM(card.id).state('');
-          this.cardsVM(previousCard.id).state('');
-          previousCard = null;
-          this.boardVM.state('');
-          player.updateEnergy(-1);
-          m.redraw();
-        }, 1500);
-      }
-    }
-
-    // This is the first card. Cache it to match it.
-    else {
-      previousCard = card;
+      }, 1000);
     }
 
   }.bind(this);

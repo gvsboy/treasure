@@ -9,7 +9,6 @@ function Card(data) {
   this.name = m.prop(data.name);
   this.type = m.prop(data.type);
   this.icon = m.prop(data.icon);
-  this.taken = m.prop(false);
 }
 
 Card.prototype = {
