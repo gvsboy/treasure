@@ -1,99 +1,34 @@
 import _ from 'lodash';
 
-var cards = [
+import Mechanics from './mechanics';
 
-  // Monsters
-  {
-    name: 'Slime',
-    type: 'monster',
-    icon: 'fleshy-mass'
-  },
-  {
-    name: 'Rat',
-    type: 'monster',
-    icon: 'mouse'
-  },
-  {
-    name: 'Bat',
-    type: 'monster',
-    icon: 'bat'
-  },
+var iconMap = {
+  "slime": "fleshy-mass",
+  "rat": "mouse",
+  "bat": "bat",
+  "coin bag": "cash",
+  "coin stack": "coins",
+  "ruby": "rupee",
+  "tripwire": "tripwire",
+  "net": "fishing-net",
+  "apple": "shiny-apple",
+  "bread": "sliced-bread",
+  "short sword": "stiletto",
+  "mace": "spiked-mace",
+  "leather armor": "leather-vest",
+  "scroll": "tied-scroll",
+  "stairs": "stairs"
+};
 
-  // Treasures
-  {
-    name: 'Bag of Coins',
-    type: 'treasure',
-    icon: 'cash'
-  },
-  {
-    name: 'Stack of Coins',
-    type: 'treasure',
-    icon: 'coins'
-  },
-  {
-    name: 'Ruby',
-    type: 'treasure',
-    icon: 'rupee'
-  },
-
-  // Traps
-  {
-    name: 'Tripwire',
-    type: 'trap',
-    icon: 'tripwire'
-  },
-  {
-    name: 'Net',
-    type: 'trap',
-    icon: 'fishing-net'
-  },
-
-  // Food
-  {
-    name: 'Apple',
-    type: 'food',
-    icon: 'shiny-apple'
-  },
-  {
-    name: 'Bread',
-    type: 'food',
-    icon: 'sliced-bread'
-  },
-
-  // Weapons
-  {
-    name: 'Mace',
-    type: 'weapon',
-    icon: 'spiked-mace'
-  },
-  {
-    name: 'Short Sword',
-    type: 'weapon',
-    icon: 'stiletto'
-  },
-
-  // Armor
-  {
-    name: 'Leather Vest',
-    type: 'armor',
-    icon: 'leather-vest'
-  },
-
-  // Magic
-  {
-    name: 'Fire Scroll',
-    type: 'magic',
-    icon: 'tied-scroll'
-  },
-
-  // Stairs
-  {
-    name: 'Stairs',
-    type: 'stairs',
-    icon: 'stairs'
-  }
-
-];
+var cards = _.flatten(_.map(Mechanics, (type, typeName) => {
+  return _.map(type, (card, cardName) => {
+    return {
+      name: cardName,
+      type: typeName,
+      icon: iconMap[card.type]
+    };
+  })
+}));
 
 export default {
 

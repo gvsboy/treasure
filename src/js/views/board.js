@@ -12,7 +12,7 @@ export default function(ctrl) {
       return m.component(cardComponent, {
         id: card.id,
         class: vm.state(),
-//        front: card.icon(),
+        front: card.icon(),
         back: card.icon()
       })
     })

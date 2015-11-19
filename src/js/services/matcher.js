@@ -3,6 +3,8 @@ import _ from 'lodash';
 import STATES from '../config/states';
 
 import Card from '../models/card';
+import Uncommons from '../data/Uncommons';
+import Dice from '../mechanics/dice';
 
 function Matcher(cardsVM) {
   this._cardsVM = cardsVM;
@@ -33,7 +35,8 @@ Matcher.prototype = {
 
   generateOutcome: function() {
 
-    var generatedCard = null;
+    var generatedCard = null,
+        cardName;
 
     // If types match, things are looking good! Technically some sort of match.
     if (this._allMatch('type')) {
@@ -42,21 +45,37 @@ Matcher.prototype = {
       // You've got a chance at some uncommon or rare stuff.
       if (this._allMatch('name')) {
 
-        // Setting to matched will trigger the animation.
-        this._allSetState(STATES.MATCHED);
+        cardName = _.first(this._cards).name();
 
-        // Hardcode for now...
-        generatedCard = Card.getByName(this._cards[0].name());
+        // You've got a 25% chance and uncommon stuff!
+        if (Dice.roll('1d100') > 75) {
+          generatedCard = Uncommons.getUncommon(cardName);
+        }
+        else {
+          generatedCard = Card.getByName(cardName);
+        }
       }
 
+      // Otherwise, its a 50/50.
+      else {
+        cardName = _.sample(this._allGetPropertyValues('name'));
+        generatedCard = Card.getByName(cardName);
+      }
+
+      // Setting to matched will trigger the animation.
+      this._allSetState(STATES.MATCHED);
     }
 
     this.reset(!generatedCard);
     return generatedCard;
   },
 
+  _allGetPropertyValues: function(property) {
+    return _.invoke(this._cards, property);
+  },
+
   _allMatch: function(property) {
-    var values = _.invoke(this._cards, property);
+    var values = this._allGetPropertyValues(property);
     return _.uniq(values).length === 1;
   },
 

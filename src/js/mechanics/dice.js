@@ -10,7 +10,7 @@ export default {
    */
   roll: function(diceFormat, max) {
 
-    var [times, sides] = diceFormat.split('d');
+    var [times, sides, bonus] = diceFormat.split(/d|\+/);
 
     if (max) {
       return times * sides;
@@ -20,7 +20,8 @@ export default {
       _.times(times, _.partial(
         _.random, 1, sides, false
       )),
-      (total, n) => total + n
+      (total, n) => total + n,
+      parseInt(bonus, 10) || 0
     );
   }
 
