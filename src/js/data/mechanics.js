@@ -1,5 +1,7 @@
 // NOTE: Let's calculate the exp using an algo!
 
+var lv2Color = '#1dd3b0';
+
 export const monster = {
 
   // Slimes
@@ -11,8 +13,9 @@ export const monster = {
     speed: 1
   },
 
-  "Blue Slime": {
+  "Sludge": {
     type: "slime",
+    color: lv2Color,
     hp: 16,
     attack: "1d8+1",
     defense: 3,
@@ -38,6 +41,7 @@ export const monster = {
 
   "Giant Rat": {
     type: "rat",
+    color: lv2Color,
     hp: 13,
     attack: "2d4",
     defense: 1,
@@ -63,6 +67,7 @@ export const monster = {
 
   "Angry Bat": {
     type: "bat",
+    color: lv2Color,
     hp: 10,
     attack: "2d4+1",
     defense: 1,
@@ -89,6 +94,7 @@ export const treasure = {
 
   "Big Bag of Coins": {
     type: "coin bag",
+    color: lv2Color,
     gold: 300
   },
 
@@ -105,6 +111,7 @@ export const treasure = {
 
   "Tall Stack of Coins": {
     type: "coin stack",
+    color: lv2Color,
     gold: 750
   },
 
@@ -121,6 +128,7 @@ export const treasure = {
 
   "Shimmering Ruby": {
     type: "ruby",
+    color: lv2Color,
     gold: 3000
   },
 
@@ -144,6 +152,7 @@ export const trap = {
 
   "Razorwire": {
     type: "tripwire",
+    color: lv2Color,
     save: "speed",
     power: 12,
     result: {
@@ -163,6 +172,7 @@ export const trap = {
 
   "Chain Net": {
     type: "net",
+    color: lv2Color,
     save: "speed",
     power: 13,
     result: {
@@ -182,6 +192,7 @@ export const food = {
 
   "Delicious Apple": {
     type: "apple",
+    color: lv2Color,
     energy: 5
   },
 
@@ -192,6 +203,7 @@ export const food = {
 
   "Honey Bread": {
     type: "bread",
+    color: lv2Color,
     energy: 7
   }
 
@@ -206,6 +218,7 @@ export const weapon = {
 
   "Iron Sword": {
     type: "short sword",
+    color: lv2Color,
     attack: "1d6+1"
   },
 
@@ -216,6 +229,7 @@ export const weapon = {
 
   "Iron Mace": {
     type: "mace",
+    color: lv2Color,
     attack: "1d8+1"
   }
 
@@ -230,6 +244,7 @@ export const armor = {
 
   "Padded Vest": {
     type: "leather armor",
+    color: lv2Color,
     defense: 2
   }
 
@@ -245,6 +260,7 @@ export const magic = {
 
   "Blaze Scroll": {
     type: "scroll",
+    color: lv2Color,
     element: "fire",
     attack: "3d8"
   }

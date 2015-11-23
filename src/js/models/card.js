@@ -9,6 +9,7 @@ function Card(data) {
   this.name = m.prop(data.name);
   this.type = m.prop(data.type);
   this.icon = m.prop(data.icon);
+  this.color = m.prop(data.color);
 }
 
 Card.prototype = {

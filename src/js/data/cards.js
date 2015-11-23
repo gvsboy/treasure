@@ -2,6 +2,8 @@ import _ from 'lodash';
 
 import Mechanics from './mechanics';
 
+var DEFAULT_COLOR = '#ccc';
+
 var iconMap = {
   "slime": "fleshy-mass",
   "rat": "mouse",
@@ -25,7 +27,8 @@ var cards = _.flatten(_.map(Mechanics, (type, typeName) => {
     return {
       name: cardName,
       type: typeName,
-      icon: iconMap[card.type]
+      icon: iconMap[card.type],
+      color: card.color || DEFAULT_COLOR
     };
   })
 }));

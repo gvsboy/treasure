@@ -40,7 +40,6 @@ var map = {
 
 function getter(type, cardName) {
   var randomCardName = _.sample(map[type][cardName]);
-  console.log('UNCOMMON!!', randomCardName);
   return Card.getByName(randomCardName);
 }
 

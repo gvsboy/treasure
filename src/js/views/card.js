@@ -2,7 +2,7 @@ import m from 'mithril';
 import { svg } from '../helpers/view';
 
 export default function(ctrl, args) {
-  return m('li.card', { id: args.id, class: args.class, config: args.config },
+  return m('li.card', { id: args.id, class: args.class, style: { fill: args.color }, config: args.config },
     m('div.flipper', [
       m('div.front',
         svg(args.front)

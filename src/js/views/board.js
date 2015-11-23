@@ -13,7 +13,8 @@ export default function(ctrl) {
         id: card.id,
         class: vm.state(),
         front: card.icon(),
-        back: card.icon()
+        back: card.icon(),
+        color: card.color()
       })
     })
   ]);

@@ -14,7 +14,8 @@ export default function(ctrl, args) {
         class: 'matched',
         front: card.icon(),
         back: card.icon(),
-        config: _.partial(args.animate, { card, index, cardVM })
+        config: _.partial(args.animate, { card, index, cardVM }),
+        color: card.color()
       });
     })
   ]);
