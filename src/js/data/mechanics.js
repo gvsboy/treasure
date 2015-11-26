@@ -145,7 +145,7 @@ export const trap = {
     type: "tripwire",
     save: "speed",
     power: 8,
-    result: {
+    effects: {
       updateHealth: "1d4"
     }
   },
@@ -155,7 +155,7 @@ export const trap = {
     color: lv2Color,
     save: "speed",
     power: 12,
-    result: {
+    effects: {
       updateHealth: "2d4"
     }
   },
@@ -164,7 +164,7 @@ export const trap = {
     type: "net",
     save: "speed",
     power: 10,
-    result: {
+    effects: {
       updateHealth: "1d4",
       updateEnergy: "1d4"
     }
@@ -175,7 +175,7 @@ export const trap = {
     color: lv2Color,
     save: "speed",
     power: 13,
-    result: {
+    effects: {
       updateHealth: "2d4",
       updateEnergy: "2d4"
     }
