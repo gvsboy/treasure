@@ -96,6 +96,34 @@ export function revealToInventory(el, isInit, context) {
   });
 }
 
+export function revealToGold(el, isInit, context) {
+
+  // Reference the gold status, show the card and information.
+  var goldStatus = document.getElementById(DOM.ID.GOLD_STATUS),
+      card = getAndRevealCardAndInfo(el).card;
+
+  // Now, move the card to the end of the energy bar.
+  leapTo(card, {
+    top: top(goldStatus),
+    left: left(goldStatus),
+    callback: m.redraw
+  });
+}
+
+export function revealToEnergyBar(el, isInit, context) {
+
+  // Reference the energy bar, show the card and information.
+  var energyBar = document.querySelector(DOM.CLASS.ENERGY_BAR),
+      card = getAndRevealCardAndInfo(el).card;
+
+  // Now, move the card to the end of the energy bar.
+  leapTo(card, {
+    top: top(energyBar),
+    left: left(energyBar) + width(energyBar),
+    callback: m.redraw
+  });
+}
+
 // THESE HAVE SHITTY NAMES===
 
 // Retrieves the correct starting top property value based on the board and card.
