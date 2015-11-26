@@ -53,7 +53,7 @@ export function leapTo(el, opts) {
   .then(opts.callback);
 }
 
-export function getAndRevealCardAndInfo(el) {
+export function getAndRevealCardAndInfo(el, freeze) {
 
   // Get references to all the objects we need.
   var board = document.getElementById(DOM.ID.BOARD),
@@ -74,9 +74,11 @@ export function getAndRevealCardAndInfo(el) {
   Velocity(info, 'slideDown');
 
   // And slide up the info panel to hide it.
-  Velocity(info, 'slideUp', {
-    delay: 1000
-  });
+  if (!freeze) {
+    Velocity(info, 'slideUp', {
+      delay: 1000
+    });
+  }
 
   return { card, info };
 }
@@ -122,6 +124,11 @@ export function revealToEnergyBar(el, isInit, context) {
     left: left(energyBar) + width(energyBar),
     callback: m.redraw
   });
+}
+
+export function trapAnimation(el, isInit, context) {
+
+  var card = getAndRevealCardAndInfo(el, true).card;
 }
 
 // THESE HAVE SHITTY NAMES===
