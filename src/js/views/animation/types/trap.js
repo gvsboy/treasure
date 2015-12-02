@@ -5,7 +5,7 @@ export default function(ctrl, args) {
   return m('div', [
     m('li', 'Evading'),
     m('div.bar-container', [
-      m('div.bar', { class: 'evade' })
+      m('div.bar-evade')
     ])
   ]);
 }

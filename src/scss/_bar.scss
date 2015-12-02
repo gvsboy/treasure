@@ -13,8 +13,10 @@
     background-color: #96a0c4;
   }
 
-  &.evade {
-    height: 1rem;
-    background-color: orange;
-  }
+}
+
+.bar-evade {
+  display: block;
+  height: 1rem;
+  background-color: orange;
 }
