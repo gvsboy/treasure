@@ -18,7 +18,7 @@ const ONE_HUNDRED = 100;
 function calculateEvade(power, bonus) {
 
   var roll = Dice.roll('1d20');
-
+console.log('rolling rolling rolling', roll, 'bonus:', bonus, 'power:', power);
   // If a 1 was rolled, you fumbled.
   if (roll === 1) {
     return 1;
@@ -56,11 +56,12 @@ export default function(player) {
 
   var data = trap[this.name()],
       evade = calculateEvade(data.power, player[data.save]()),
-      calculated = { evade };
+      isDevastating = evade === 1,
+      calculated = { evade, isDevastating };
 
   // If your evasion attempt is not 100%, you are affected.
   if (evade < ONE_HUNDRED) {
-    calculated.results = executeEffects(player, data.effects, evade === 1);
+    calculated.results = executeEffects(player, data.effects, isDevastating);
   }
 
   return _.merge(calculated, data);

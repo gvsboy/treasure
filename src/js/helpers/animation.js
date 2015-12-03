@@ -32,6 +32,15 @@ export function under(underEl, overEl) {
   top(underEl, top(overEl) + height(overEl));
 }
 
+export function flash(el, color) {
+  Velocity(el, {
+    backgroundColor: color || '#fff'
+  }, {
+    duration: 200
+  });
+  Velocity(el, 'reverse');
+}
+
 /**
  * [leapTo description]
  * @param  {Object} el [description]
@@ -128,7 +137,31 @@ export function revealToEnergyBar(el, isInit, context) {
 
 export function trapAnimation(el, isInit, context) {
 
-  var card = getAndRevealCardAndInfo(el, true).card;
+  var card = getAndRevealCardAndInfo(el, true).card,
+      bar = el.querySelector(DOM.CLASS.EVADE_BAR),
+      results = el.querySelector(DOM.CLASS.RESULTS),
+      evade = parseInt(bar.getAttribute('data-evade'), 10);
+
+  // At least grow the bar to a noticeable width.
+  if (evade < 25) {
+    evade = 25;
+  }
+
+  // Start the bar at 0 and let the growing begin!
+  bar.style.width = 0;
+
+  Velocity(bar, {
+    width: evade + '%'
+  }, {
+    duration: 2000,
+    complete: function() {
+      results.style.display = 'block';
+      if (evade === 100) {
+        flash(bar);
+      }
+    }
+  });
+
 }
 
 // THESE HAVE SHITTY NAMES===
@@ -150,6 +183,7 @@ export default {
   toPx,
   stack,
   under,
+  flash,
   leapTo,
   getTop,
   getEndingLeft,

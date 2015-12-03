@@ -7,7 +7,9 @@ export default {
   CLASS: {
     HEALTH_BAR: '.health.bar',
     ENERGY_BAR: '.energy.bar',
+    EVADE_BAR: '.evade-bar',
     CARD: '.card',
-    INFO: '.info'
+    INFO: '.info',
+    RESULTS: '.results'
   }
 };
