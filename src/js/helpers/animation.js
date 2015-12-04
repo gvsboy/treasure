@@ -171,6 +171,12 @@ export function trapAnimation(el, isInit, context) {
 
 }
 
+export function battleAnimation(el, isInit, context) {
+
+  var card = getAndRevealCardAndInfo(el, true).card;
+
+}
+
 // THESE HAVE SHITTY NAMES===
 
 // Retrieves the correct starting top property value based on the board and card.

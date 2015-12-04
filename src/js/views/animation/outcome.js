@@ -1,7 +1,7 @@
 import m from 'mithril';
 
 import { svg } from '../../helpers/view';
-import { revealToInventory, revealToEnergyBar, revealToGold, trapAnimation } from '../../helpers/animation';
+import { revealToInventory, revealToEnergyBar, revealToGold, trapAnimation, battleAnimation } from '../../helpers/animation';
 
 import controller from '../../controllers/animation/type';
 import treasure from './types/treasure';
@@ -29,7 +29,7 @@ var animationMap = {
   armor: revealToInventory,
   magic: revealToInventory,
   trap: trapAnimation,
-  monster: revealToEnergyBar
+  monster: battleAnimation
 };
 
 export default function(ctrl, args) {

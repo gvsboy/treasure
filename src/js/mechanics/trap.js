@@ -17,7 +17,7 @@ const ONE_HUNDRED = 100;
  */
 function calculateEvade(power, bonus) {
 
-  var roll = Dice.roll('1d20');
+  var roll = Dice.roll1d20();
 
   // If a 1 was rolled, you fumbled.
   if (roll === 1) {
