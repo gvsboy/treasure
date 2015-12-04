@@ -138,6 +138,7 @@ export function revealToEnergyBar(el, isInit, context) {
 export function trapAnimation(el, isInit, context) {
 
   var card = getAndRevealCardAndInfo(el, true).card,
+      info = el.querySelector(DOM.CLASS.INFO),
       bar = el.querySelector(DOM.CLASS.EVADE_BAR),
       results = el.querySelector(DOM.CLASS.RESULTS),
 
@@ -161,6 +162,10 @@ export function trapAnimation(el, isInit, context) {
       if (evade === 100) {
         flash(bar);
       }
+      Velocity(info, 'slideUp', {
+        delay: 1500,
+        complete: m.redraw
+      });
     }
   });
 

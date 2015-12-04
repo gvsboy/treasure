@@ -5,7 +5,6 @@ import DOM from '../config/dom';
 import boardView from './board';
 import boardController from '../controllers/board';
 import barView from './bar';
-import barController from '../controllers/bar';
 import animationView from './animation/base';
 import animationController from '../controllers/animation';
 import inventoryView from './inventory';
@@ -18,8 +17,7 @@ var board = {
 
 // Bar component.
 var bar = {
-  view: barView,
-  controller: barController
+  view: barView
 };
 
 // Inventory component.
@@ -64,8 +62,8 @@ export default function(ctrl) {
     ]),
     m('div.column', [
       m.component(board, { player,  cards, boardVM }),
-      m.component(bar, { type: 'health', value: player.health, max: player.maxHealth }),
-      m.component(bar, { type: 'energy', value: player.energy, max: player.maxEnergy })
+      m.component(bar, { type: 'health', value: player.health(), max: player.maxHealth() }),
+      m.component(bar, { type: 'energy', value: player.energy(), max: player.maxEnergy() })
     ]),
     m.component(animations, { cards, player, boardVM })
   ]);
