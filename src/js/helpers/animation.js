@@ -140,12 +140,13 @@ export function trapAnimation(el, isInit, context) {
   var card = getAndRevealCardAndInfo(el, true).card,
       bar = el.querySelector(DOM.CLASS.EVADE_BAR),
       results = el.querySelector(DOM.CLASS.RESULTS),
-      evade = parseInt(bar.getAttribute('data-evade'), 10);
 
-  // At least grow the bar to a noticeable width.
-  if (evade < 25) {
-    evade = 25;
-  }
+      // At least grow the bar to a noticeable width (at least 25%).
+      evade = Math.max(parseInt(bar.getAttribute('data-evade'), 10), 25),
+
+      // Fill the bar up at a similar speed regardless of the final width.
+      // 1000ms is for 100%.
+      barDuration = (evade / 100) * 1000;
 
   // Start the bar at 0 and let the growing begin!
   bar.style.width = 0;
@@ -153,9 +154,10 @@ export function trapAnimation(el, isInit, context) {
   Velocity(bar, {
     width: evade + '%'
   }, {
-    duration: 2000,
+    duration: barDuration,
+    delay: 500,
     complete: function() {
-      results.style.display = 'block';
+      Velocity(results, 'slideDown');
       if (evade === 100) {
         flash(bar);
       }

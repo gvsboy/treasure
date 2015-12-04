@@ -19,6 +19,7 @@ export default function(ctrl, args) {
       m('div.evade-bar', { 'data-evade': data.evade })
     ]),
     m('div.results', [
+      data.isDevastating ? m('div.devastating', 'Devastating!') : null,
       data.results ? showResults(data.results) : m('div.dodged', 'Dodged!')
     ])
   ]);
