@@ -3,7 +3,7 @@ import _ from 'lodash';
 
 import Battle from '../services/battle';
 
-import Monster from '../models/monster';
+import Monster from '../models/characters/monster';
 import { monster } from '../data/mechanics';
 
 export default function(player) {

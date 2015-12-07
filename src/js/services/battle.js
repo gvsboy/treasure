@@ -14,17 +14,7 @@ function Battle() {
 Battle.prototype = {
 
   _nextRound: function() {
-
-    var current = this.combatant,
-        combatants = this.combatants;
-
-    if (!current) {
-      this.combatant = this._getFastest();
-    }
-    else {
-      this.combatant = _.last(combatants) === current ? _.first(combatants) : combatants[_.indexOf(combatants, current) + 1];
-    }
-
+    this.combatant = this._getNext();
     window.setTimeout(this._executeTurn.bind(this), INTERVAL);
   },
 
@@ -43,8 +33,22 @@ Battle.prototype = {
     return this.combatants[_.indexOf(rolls, _.max(rolls))];
   },
 
+  _getNext: function() {
+
+    var current = this.combatant,
+        combatants = this.combatants;
+
+    if (!current) {
+      return this._getFastest();
+    }
+    return _.last(combatants) === current ? _.first(combatants) : combatants[_.indexOf(combatants, current) + 1];
+  },
+
   _executeTurn: function() {
+
+    var opponent = this._getNext();
     var message;
+
     if (this.combatant === this._getFastest()) {
       message = 'hit';
     }

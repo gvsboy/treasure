@@ -1,4 +1,4 @@
-import Player from '../models/player';
+import Player from '../models/characters/player';
 import Card from '../models/card';
 import BoardVM from '../vm/board';
 
