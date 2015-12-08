@@ -40,6 +40,7 @@ export default function(ctrl) {
   return m('div#container', [
     m('div.column.status', [
       m('ul', [
+        m('li', player.name()),
         m('li', 'Floor: ' + player.floor()),
         m('li', 'Level: ' + player.level()),
         m('li', 'Exp: ' + player.exp()),

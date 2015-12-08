@@ -1,8 +1,11 @@
 import m from 'mithril';
 
+import Dice from '../../mechanics/dice';
+
 class Character {
 
   constructor(data) {
+    this.name = m.prop(data.name);
     this.health = m.prop(data.health);
     this.maxHealth = m.prop(data.health);
     this.strength = m.prop(data.strength);
@@ -13,12 +16,29 @@ class Character {
     this.defense = m.prop(data.defense);
   }
 
-  attack(target) {
-    target.updateHealth(this.attack());
+  isDead() {
+    return this.health() === 0;
+  }
+
+  attackMelee(target) {
+    var damage = Dice.roll(this.attack());
+    target.updateHealth(-damage);
+    return damage;
   }
 
   updateHealth(amount) {
-    this.health(this.health() + amount);
+
+    var newHealth = this.health() + amount;
+
+    if (newHealth > this.maxHealth()) {
+      this.health(this.maxHealth());
+    }
+    else if (newHealth < 0) {
+      this.health(0);
+    }
+    else {
+      this.health(newHealth);
+    }
   }
 
 }

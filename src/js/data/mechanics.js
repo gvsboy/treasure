@@ -7,7 +7,7 @@ export const monster = {
   // Slimes
   "Slime": {
     type: "slime",
-    hp: 10,
+    health: 10,
     attack: "1d6",
     defense: 2,
     speed: 1
@@ -16,7 +16,7 @@ export const monster = {
   "Sludge": {
     type: "slime",
     color: lv2Color,
-    hp: 16,
+    health: 16,
     attack: "1d8+1",
     defense: 3,
     speed: 2
@@ -24,7 +24,7 @@ export const monster = {
 
   "Blorp": {
     type: "slime",
-    hp: 23,
+    health: 23,
     attack: "2d8",
     defense: 5,
     speed: 2
@@ -33,7 +33,7 @@ export const monster = {
   // Rats
   "Rat": {
     type: "rat",
-    hp: 8,
+    health: 8,
     attack: "1d4",
     defense: 1,
     speed: 2
@@ -42,7 +42,7 @@ export const monster = {
   "Giant Rat": {
     type: "rat",
     color: lv2Color,
-    hp: 13,
+    health: 13,
     attack: "2d4",
     defense: 1,
     speed: 3
@@ -50,7 +50,7 @@ export const monster = {
 
   "Nibbles": {
     type: "rat",
-    hp: 20,
+    health: 20,
     attack: "3d4",
     defense: 2,
     speed: 5
@@ -59,7 +59,7 @@ export const monster = {
   // Bats
   "Bat": {
     type: "bat",
-    hp: 6,
+    health: 6,
     attack: "1d4",
     defense: 1,
     speed: 3
@@ -68,7 +68,7 @@ export const monster = {
   "Angry Bat": {
     type: "bat",
     color: lv2Color,
-    hp: 10,
+    health: 10,
     attack: "2d4+1",
     defense: 1,
     speed: 5
@@ -76,7 +76,7 @@ export const monster = {
 
   "Leatherwing": {
     type: "bat",
-    hp: 16,
+    health: 16,
     attack: "2d6+1",
     defense: 2,
     speed: 7

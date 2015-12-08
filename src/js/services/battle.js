@@ -44,20 +44,20 @@ Battle.prototype = {
     return _.last(combatants) === current ? _.first(combatants) : combatants[_.indexOf(combatants, current) + 1];
   },
 
+  _generateMessage: function(result) {
+    if (result > 0) {
+      return `${this.combatant.name()} attacks! ${result} damage`;
+    }
+    return `${this.combatant.name()} attacks! Miss!`;
+  },
+
   _executeTurn: function() {
 
-    var opponent = this._getNext();
-    var message;
+    var opponent = this._getNext(),
+        result = this.combatant.attackMelee(opponent);
 
-    if (this.combatant === this._getFastest()) {
-      message = 'hit';
-    }
-    else {
-      message = 'miss';
-    }
-    this.log().push(message);
+    this.log().push(this._generateMessage(result));
 
-    console.log(this.log());
     m.redraw();
     this._nextRound();
   }

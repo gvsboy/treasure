@@ -13,10 +13,19 @@
     background-color: #96a0c4;
   }
 
+  &.monster {
+    height: 1rem;
+    background-color: green;
+  }
 }
 
 .evade-bar {
   display: block;
   height: 1rem;
   background-color: orange;
+}
+
+.bar-container {
+  margin: 0 8rem;
+  background-color: grey;
 }

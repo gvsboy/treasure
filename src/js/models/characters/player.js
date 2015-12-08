@@ -7,6 +7,7 @@ class Player extends Character {
   constructor() {
 
     super({
+      name: 'Kais',
       health: 30,
       strength: 5,
       vitality: 2,

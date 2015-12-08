@@ -172,9 +172,10 @@ export function trapAnimation(el, isInit, context) {
 }
 
 export function battleAnimation(el, isInit, context) {
-
-  var card = getAndRevealCardAndInfo(el, true).card;
-
+  if (isInit) {
+    return;
+  }
+  getAndRevealCardAndInfo(el, true);
 }
 
 // THESE HAVE SHITTY NAMES===
