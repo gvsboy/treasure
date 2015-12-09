@@ -14,6 +14,8 @@ class Character {
     this.magic = m.prop(data.magic);
     this.attack = m.prop(data.attack);
     this.defense = m.prop(data.defense);
+
+    this.weaponIcon = m.prop(data.weaponIcon || 'punch');
   }
 
   isDead() {

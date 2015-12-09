@@ -10,7 +10,8 @@ export const monster = {
     health: 10,
     attack: "1d6",
     defense: 2,
-    speed: 1
+    speed: 1,
+    weaponIcon: 'goo-explosion'
   },
 
   "Sludge": {
@@ -19,7 +20,8 @@ export const monster = {
     health: 16,
     attack: "1d8+1",
     defense: 3,
-    speed: 2
+    speed: 2,
+    weaponIcon: 'goo-explosion'
   },
 
   "Blorp": {
@@ -27,7 +29,8 @@ export const monster = {
     health: 23,
     attack: "2d8",
     defense: 5,
-    speed: 2
+    speed: 2,
+    weaponIcon: 'goo-explosion'
   },
 
   // Rats
@@ -36,7 +39,8 @@ export const monster = {
     health: 8,
     attack: "1d4",
     defense: 1,
-    speed: 2
+    speed: 2,
+    weaponIcon: 'grasping-claws'
   },
 
   "Giant Rat": {
@@ -45,7 +49,8 @@ export const monster = {
     health: 13,
     attack: "2d4",
     defense: 1,
-    speed: 3
+    speed: 3,
+    weaponIcon: 'grasping-claws'
   },
 
   "Nibbles": {
@@ -53,7 +58,8 @@ export const monster = {
     health: 20,
     attack: "3d4",
     defense: 2,
-    speed: 5
+    speed: 5,
+    weaponIcon: 'grasping-claws'
   },
 
   // Bats
@@ -62,7 +68,8 @@ export const monster = {
     health: 6,
     attack: "1d4",
     defense: 1,
-    speed: 3
+    speed: 3,
+    weaponIcon: 'sharp-lips'
   },
 
   "Angry Bat": {
@@ -71,7 +78,8 @@ export const monster = {
     health: 10,
     attack: "2d4+1",
     defense: 1,
-    speed: 5
+    speed: 5,
+    weaponIcon: 'sharp-lips'
   },
 
   "Leatherwing": {
@@ -79,7 +87,8 @@ export const monster = {
     health: 16,
     attack: "2d6+1",
     defense: 2,
-    speed: 7
+    speed: 7,
+    weaponIcon: 'sharp-lips'
   }
 
 };

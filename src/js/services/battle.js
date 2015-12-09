@@ -45,10 +45,21 @@ Battle.prototype = {
   },
 
   _generateMessage: function(result) {
+
+    var message = {
+      action: `${this.combatant.name()} attacks!`
+    };
+
     if (result > 0) {
-      return `${this.combatant.name()} attacks! ${result} damage`;
+      message.result = `${result} damage`;
     }
-    return `${this.combatant.name()} attacks! Miss!`;
+    else {
+      message.result = 'Miss!';
+    }
+
+    message.icon = this.combatant.weaponIcon();
+
+    return message;
   },
 
   _executeTurn: function() {
