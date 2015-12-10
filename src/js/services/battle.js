@@ -15,7 +15,7 @@ Battle.prototype = {
 
   _nextRound: function() {
     this.combatant = this._getNext();
-    window.setTimeout(this._executeTurn.bind(this), INTERVAL);
+    _.delay(this._executeTurn.bind(this), INTERVAL);
   },
 
   /**
@@ -70,7 +70,19 @@ Battle.prototype = {
     this.log().push(this._generateMessage(result));
 
     m.redraw();
-    this._nextRound();
+
+    if (opponent.isDead()) {
+      _.delay(this._end.bind(this), INTERVAL / 2, opponent);
+    }
+    else {
+      this._nextRound();
+    }
+  },
+
+  _end: function(deceased) {
+    this.log().push(`${deceased.name()} has been destroyed!`);
+    this.complete = true;
+    m.redraw();
   }
 
 };

@@ -1,10 +1,15 @@
 @keyframes fromLeft {
-  from { left: -50%; }
+  from { left: -60%; }
+  to { left: 0; }
+}
+
+@keyframes endLeft {
+  from { left: -100%; }
   to { left: 0; }
 }
 
 @keyframes fromRight {
-  from { right: -50%; }
+  from { right: -40%; }
   to { right: 0; }
 }
 
@@ -15,28 +20,38 @@
   overflow: hidden;
 
   svg {
-    width: 2rem;
-    height: 2rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-right: 0.2rem;
     fill: #ccc;
+    border: 0.1rem solid #ccc;
+    border-radius: 0.4rem;
   }
 
   .log {
     display: inline-block;
     position: relative;
-    width: 50%;
   }
 
   .action {
-    left: -50%;
+    width: 60%;
+    left: -60%;
     text-align: left;
     animation: fromLeft 0.4s forwards;
   }
 
   .result {
-    right: -50%;
+    width: 40%;
+    right: -40%;
     text-align: right;
     animation: fromRight 0.4s forwards;
     animation-delay: 0.4s;
   }
 
+  .generic {
+    width: 100%;
+    left: -100%;
+    text-align: left;
+    animation: endLeft 0.4s forwards;
+  }
 }

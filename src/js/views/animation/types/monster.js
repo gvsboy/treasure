@@ -22,6 +22,11 @@ export default function(ctrl, args) {
   var battle = ctrl.data.battle,
       monster = ctrl.data.monster;
 
+  if (battle.complete) {
+    ctrl.end();
+    _.delay(m.redraw, 2000);
+  }
+
   return m('div', [
 
     m('div.bar-container', [
@@ -30,13 +35,22 @@ export default function(ctrl, args) {
 
     m('ul.log-battle', { config: scroll }, [
       _.map(battle.log(), message => {
-        return m('li.log-item', [
-          m('span.log.action', [
-            svg(message.icon),
-            message.action
-          ]),
-          m('span.log.result', message.result)
-        ]);
+
+        if (_.isString(message)) {
+          return m('li.log-item', [
+            m('span.log.generic', message)
+          ]);
+        }
+
+        else {
+          return m('li.log-item', [
+            m('span.log.action', [
+              svg(message.icon),
+              message.action
+            ]),
+            m('span.log.result', message.result)
+          ]);
+        }
       })
     ])
   ]);
