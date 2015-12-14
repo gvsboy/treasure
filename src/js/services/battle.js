@@ -3,6 +3,8 @@ import _ from 'lodash';
 
 import Dice from '../mechanics/dice';
 
+import Monster from '../models/characters/monster';
+
 var INTERVAL = 2000;
 
 function Battle() {
@@ -80,7 +82,14 @@ Battle.prototype = {
   },
 
   _end: function(deceased) {
+
     this.log().push(`${deceased.name()} has been destroyed!`);
+
+    if (deceased instanceof Monster) {
+      this.combatant.updateExp(deceased.exp());
+      this.log().push(`You earned ${deceased.exp()} experience points!`);
+    }
+
     this.complete = true;
     m.redraw();
   }

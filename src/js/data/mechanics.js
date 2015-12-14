@@ -8,28 +8,26 @@ export const monster = {
   "Slime": {
     type: "slime",
     health: 10,
-    attack: "1d6",
-    defense: 2,
+    strength: 1,
+    vitality: 4,
     speed: 1,
+    magic: 1,
+    attack: "1d6",
+    defense: 6,
     weaponIcon: 'goo-explosion'
   },
 
   "Sludge": {
     type: "slime",
+    level: 2,
     color: lv2Color,
     health: 16,
-    attack: "1d8+1",
-    defense: 3,
+    strength: 2,
+    vitality: 5,
     speed: 2,
-    weaponIcon: 'goo-explosion'
-  },
-
-  "Blorp": {
-    type: "slime",
-    health: 23,
-    attack: "2d8",
-    defense: 5,
-    speed: 2,
+    magic: 3,
+    attack: "1d8",
+    defense: 8,
     weaponIcon: 'goo-explosion'
   },
 
@@ -37,28 +35,26 @@ export const monster = {
   "Rat": {
     type: "rat",
     health: 8,
-    attack: "1d4",
-    defense: 1,
+    strength: 2,
+    vitality: 1,
     speed: 2,
+    magic: 1,
+    attack: "1d4",
+    defense: 7,
     weaponIcon: 'grasping-claws'
   },
 
   "Giant Rat": {
     type: "rat",
+    level: 2,
     color: lv2Color,
     health: 13,
-    attack: "2d4",
-    defense: 1,
+    strength: 4,
+    vitality: 2,
     speed: 3,
-    weaponIcon: 'grasping-claws'
-  },
-
-  "Nibbles": {
-    type: "rat",
-    health: 20,
-    attack: "3d4",
-    defense: 2,
-    speed: 5,
+    magic: 1,
+    attack: "2d4",
+    defense: 8,
     weaponIcon: 'grasping-claws'
   },
 
@@ -66,28 +62,26 @@ export const monster = {
   "Bat": {
     type: "bat",
     health: 6,
+    strength: 2,
+    vitality: 2,
+    speed: 4,
+    magic: 1,
     attack: "1d4",
-    defense: 1,
-    speed: 3,
+    defense: 7,
     weaponIcon: 'sharp-lips'
   },
 
   "Angry Bat": {
     type: "bat",
+    level: 2,
     color: lv2Color,
     health: 10,
+    strength: 4,
+    vitality: 3,
+    speed: 6,
+    magic: 2,
     attack: "2d4+1",
-    defense: 1,
-    speed: 5,
-    weaponIcon: 'sharp-lips'
-  },
-
-  "Leatherwing": {
-    type: "bat",
-    health: 16,
-    attack: "2d6+1",
-    defense: 2,
-    speed: 7,
+    defense: 10,
     weaponIcon: 'sharp-lips'
   }
 
@@ -98,52 +92,37 @@ export const treasure = {
   // Coin bags
   "Bag of Coins": {
     type: "coin bag",
-    gold: 100
+    gold: 10
   },
 
   "Big Bag of Coins": {
     type: "coin bag",
     color: lv2Color,
-    gold: 300
-  },
-
-  "Bursting Bag of Coins": {
-    type: "coin bag",
-    gold: 800
+    gold: 30
   },
 
   // Coin stacks
   "Stack of Coins": {
     type: "coin stack",
-    gold: 250
+    gold: 25
   },
 
   "Tall Stack of Coins": {
     type: "coin stack",
     color: lv2Color,
-    gold: 750
-  },
-
-  "Towering Stack of Coins": {
-    type: "coin stack",
-    gold: 2000
+    gold: 75
   },
 
   // Rubies
   "Ruby": {
     type: "ruby",
-    gold: 1000
+    gold: 100
   },
 
   "Shimmering Ruby": {
     type: "ruby",
     color: lv2Color,
-    gold: 3000
-  },
-
-  "Fist-Sized Ruby": {
-    type: "ruby",
-    gold: 7000
+    gold: 200
   }
 
 };

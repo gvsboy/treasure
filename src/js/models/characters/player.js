@@ -8,23 +8,23 @@ class Player extends Character {
 
     super({
       name: 'Kais',
-      health: 30,
+      health: 50,
       strength: 5,
       vitality: 2,
       speed: 2,
       magic: 1,
       attack: '1d4',
-      defense: 2
+      defense: 6
     });
 
-    this.energy = m.prop(20);
+    this.energy = m.prop(50);
     this.maxEnergy = m.prop(this.energy());
 
     this.floor = m.prop(1);
     this.turns = m.prop(0);
-    this.level = m.prop(1);
     this.gold = m.prop(0);
     this.exp = m.prop(0);
+    this.next = m.prop(50);
 
     this.items = m.prop([]);
   }
@@ -39,6 +39,10 @@ class Player extends Character {
 
   updateGold(amount) {
     this.gold(this.gold() + amount);
+  }
+
+  updateExp(amount) {
+    this.exp(this.exp() + amount);
   }
 
   addItem(item) {
