@@ -8,7 +8,7 @@ class Player extends Character {
 
     super({
       name: 'Kais',
-      health: 50,
+      health: 1,//50,
       strength: 5,
       vitality: 2,
       speed: 2,

@@ -1,9 +1,12 @@
 import m from 'mithril';
 import _ from 'lodash';
 import Velocity from 'velocity-animate';
+
+import STATES from '../../config/states';
 import { toPx, stack, getTop, getEndingLeft } from '../../helpers/animation';
 import matchedView from './matched';
 import outcomeView from './outcome';
+import deadView from '../dead';
 
 //--------------------------------------------------------------------------------
 // animate()
@@ -98,6 +101,10 @@ export default function(ctrl, args) {
       { view: outcomeView },
       { player: args.player, boardVM: args.boardVM }
     );
+  }
+
+  else if (args.boardVM.state() === STATES.DEAD) {
+    component = m.component({ view: deadView });
   }
 
   return m('div.animations', component);

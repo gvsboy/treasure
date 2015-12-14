@@ -1,3 +1,5 @@
+import STATES from '../../config/states';
+
 export default function(args) {
 
   var card = args.boardVM.outcomeCard(),
@@ -5,7 +7,7 @@ export default function(args) {
 
   function end() {
     args.boardVM.outcomeCard(null);
-    args.boardVM.state('');
+    args.boardVM.state(args.player.isDead() ? STATES.DEAD : '');
   }
 
   // If the data is not frozen, unset the outcome card; the round is over.

@@ -178,6 +178,13 @@ export function battleAnimation(el, isInit, context) {
   getAndRevealCardAndInfo(el, true);
 }
 
+export function deadAnimation(el, isInit, context) {
+  var board = document.getElementById(DOM.ID.BOARD);
+  el.style.top = getTop(board, el);
+  el.style.left = getEndingLeft(board, el);
+
+}
+
 // THESE HAVE SHITTY NAMES===
 
 // Retrieves the correct starting top property value based on the board and card.

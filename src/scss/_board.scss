@@ -17,9 +17,14 @@
     opacity: 0.2;
   }
 
+  &.dead {
+    opacity: 0.1;
+  }
+
   // Don't show the pointer cursor if the board is locked?
   &.matching .card,
-  &.matched .card {
+  &.matched .card,
+  &.dead .card {
     cursor: default;
   }
 }
@@ -107,6 +112,12 @@
 
   .results {
     display: none;
+  }
+
+  .dead {
+    position: absolute;
+    text-align: center;
+    color: red;
   }
 
 }
