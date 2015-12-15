@@ -34,7 +34,7 @@ var animationMap = {
 
 export default function(ctrl, args) {
 
-  var card = args.boardVM.outcomeCard(),
+  var card = args.boardVM().outcomeCard(),
       type = card.type(),
       view = typeMap[card.type()];
 

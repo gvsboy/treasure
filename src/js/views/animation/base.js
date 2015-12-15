@@ -85,7 +85,7 @@ export default function(ctrl, args) {
   var component;
 
   // Collect all the matched cards. There should be two if any.
-  var matchedCards = _.filter(ctrl.cards, card => ctrl.cardsVM(card.id).isMatched());
+  var matchedCards = _.filter(ctrl.cards(), card => ctrl.cardsVM(card.id).isMatched());
 
   // if there are matched cards, show them and begin that animation.
   if (!_.isEmpty(matchedCards)) {
@@ -96,15 +96,13 @@ export default function(ctrl, args) {
   }
 
   // else, if there is an outcome card, reveal that instead!
-  else if (args.boardVM.outcomeCard()) {
-    component = m.component(
-      { view: outcomeView },
-      { player: args.player, boardVM: args.boardVM }
-    );
+  else if (args.boardVM().outcomeCard()) {
+    component = m.component({ view: outcomeView }, args);
   }
 
-  else if (args.boardVM.state() === STATES.DEAD) {
-    component = m.component({ view: deadView });
+  // Otherwise, if the player is dead then stop the game!
+  else if (args.boardVM().state() === STATES.DEAD) {
+    component = m.component({ view: deadView }, args);
   }
 
   return m('div.animations', component);

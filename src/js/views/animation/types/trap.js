@@ -11,8 +11,6 @@ export default function(ctrl, args) {
 
   var data = ctrl.data;
 
-  console.log('trap data', data);
-
   return m('div', [
     m('li', 'Evading'),
     m('div.bar-container', [

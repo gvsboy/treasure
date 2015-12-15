@@ -7,17 +7,26 @@ import Matcher from '../services/matcher';
 import cardsVM from '../vm/cards';
 import Card from '../models/card';
 
-// not good
-function getCardByDOMReference(el) {
+/**
+ * Retrieves a card from an array of cards that matches the
+ * given element.
+ * @param {DOMElement} el The elment to fetch a card from.
+ * @param {Array} cards A collection of card models.
+ * @return {Card} The matched card.
+ */
+function getCardByDOMReference(el, cards) {
+
   var card = el.closest('.card'),
       index = _.indexOf(document.getElementById('board').children, card);
-  return this.cards[index];
+
+  return cards[index];
 }
 
 export default function(args) {
 
-  var player = args.player,
-      matcher = new Matcher(cardsVM);
+  var matcher = new Matcher(cardsVM);
+
+  this.player = args.player;
 
   // Fetch new cards for the passed floor.
   this.cards = args.cards;
@@ -32,8 +41,8 @@ export default function(args) {
   this.select = function(evt) {
 
     // Reference a card model object based on the click target.
-    var card = getCardByDOMReference.call(this, evt.target),
-        boardVM = this.boardVM;
+    var card = getCardByDOMReference(evt.target, this.cards()),
+        boardVM = this.boardVM();
 
     // If the board is locked the card is not successfully added
     // to the matcher, abort!
@@ -61,8 +70,8 @@ export default function(args) {
           boardVM.state(STATES.DEFAULT);
         }
 
-        player.incrementTurn();
-        player.updateEnergy(-1);
+        this.player().incrementTurn();
+        this.player().updateEnergy(-1);
         m.redraw();
 
       }, 1000);

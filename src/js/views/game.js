@@ -33,11 +33,13 @@ var animations = {
 
 export default function(ctrl) {
 
-  var player = ctrl.player,
-      cards = ctrl.cards,
-      boardVM = ctrl.boardVM;
+  var player = ctrl.player();
+
+  console.log('game view:::', ctrl.boardVM().state());
 
   return m('div#container', [
+
+    // Player status column.
     m('div.column.status', [
       m('ul', [
         m('li', player.name()),
@@ -61,11 +63,15 @@ export default function(ctrl) {
       m('hr'),
       m.component(inventory, { items: player.items() })
     ]),
+
+    // Game board column.
     m('div.column', [
-      m.component(board, { player,  cards, boardVM }),
+      m.component(board, ctrl),
       m.component(bar, { type: 'health', value: player.health(), max: player.maxHealth() }),
       m.component(bar, { type: 'energy', value: player.energy(), max: player.maxEnergy() })
     ]),
-    m.component(animations, { cards, player, boardVM })
+
+    // Animations panel.
+    m.component(animations, ctrl)
   ]);
 };
