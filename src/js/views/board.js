@@ -1,4 +1,6 @@
 import m from 'mithril';
+import _ from 'lodash';
+
 import cardView from './card';
 
 var cardComponent = {
@@ -7,19 +9,21 @@ var cardComponent = {
 
 export default function(ctrl, args) {
 
-console.log('board view:::', args.boardVM().state());
+  var board = args.boardVM();
 
-  return m('ul#board', { class: args.boardVM().state(), onclick: ctrl.select }, [
+  return m('ul#board', { class: board.state(), onclick: board.selectCard.bind(board, args.player()) }, [
 
-    ctrl.cards().map(function(card) {
-      var vm = ctrl.cardsVM(card.id);
+    _.map(board.cards(), card => {
+
       return m.component(cardComponent, {
         id: card.id,
-        class: vm.state(),
+        class: card.state(),
         front: card.icon(),
         back: card.icon(),
         color: card.color()
-      })
+      });
+
     })
+
   ]);
 };

@@ -1,7 +1,6 @@
 import m from 'mithril';
 
 import Player from '../models/characters/player';
-import Card from '../models/card';
 import BoardVM from '../vm/board';
 
 function Game() {
@@ -11,10 +10,8 @@ function Game() {
 Game.prototype = {
 
   start: function(floor = 1) {
-    console.log('start!');
     this.player = m.prop(new Player());
-    this.boardVM = m.prop(new BoardVM());
-    this.cards = m.prop(Card.get(floor));
+    this.boardVM = m.prop(new BoardVM(floor));
   }
 
 };

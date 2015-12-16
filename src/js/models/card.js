@@ -1,32 +1,13 @@
-import m from 'mithril';
 import _ from 'lodash';
+
 import CardData from '../data/cards';
 import FloorData from '../data/floors';
-import Mechanics from '../mechanics/mechanics';
 
-function Card(data) {
-  this.id = 'card-' + _.uniqueId();
-  this.name = m.prop(data.name);
-  this.type = m.prop(data.type);
-  this.icon = m.prop(data.icon);
-  this.color = m.prop(data.color);
-}
-
-Card.prototype = {
-
-  /**
-   * Retrieves the proper mechanics for the card and invokes them.
-   * @param  {Player} player The player to invoke the mechanics on.
-   */
-  activate: function(player) {
-    var mechanic = Mechanics.get(this);
-    return mechanic(player);
-  }
-
-};
+import CardVM from '../vm/card';
 
 // Cache card data for static methods. Should move this elsewhere.
-var cardData = CardData.get();
+var cardData = CardData.get(),
+    Card = {};
 
 Card.get = function(floor) {
 
@@ -41,11 +22,26 @@ Card.get = function(floor) {
   }));
 
   // Return the flattened, shuffled cards.
-  return _.map(_.shuffle(_.flatten(cards)), data => new Card(data));
+  return _.map(_.shuffle(_.flatten(cards)), data => new CardVM(data));
 };
 
 Card.getByName = function(name) {
-  return new Card(_.find(cardData, 'name', name));
+  return new CardVM(_.find(cardData, 'name', name));
+};
+
+/**
+ * Retrieves a card from an array of cards that matches the
+ * given element.
+ * @param {DOMElement} el The elment to fetch a card from.
+ * @param {Array} cards A collection of card models.
+ * @return {Card} The matched card.
+ */
+Card.getByDOMElement = function(el, cards) {
+
+  var card = el.closest('.card'),
+      index = _.indexOf(document.getElementById('board').children, card);
+
+  return cards[index];
 };
 
 export default Card;

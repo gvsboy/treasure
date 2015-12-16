@@ -3,16 +3,13 @@ import m from 'mithril';
 import DOM from '../config/dom';
 
 import boardView from './board';
-import boardController from '../controllers/board';
 import barView from './bar';
 import animationView from './animation/base';
-import animationController from '../controllers/animation';
 import inventoryView from './inventory';
 
 // Board component.
 var board = {
-  view: boardView,
-  controller: boardController
+  view: boardView
 };
 
 // Bar component.
@@ -27,15 +24,12 @@ var inventory = {
 
 // Animations component.
 var animations = {
-  view: animationView,
-  controller: animationController
+  view: animationView
 };
 
 export default function(ctrl) {
 
   var player = ctrl.player();
-
-  console.log('game view:::', ctrl.boardVM().state());
 
   return m('div#container', [
 

@@ -6,18 +6,17 @@ import Card from '../models/card';
 import Uncommons from '../data/Uncommons';
 import Dice from '../mechanics/dice';
 
-function Matcher(cardsVM) {
-  this._cardsVM = cardsVM;
+function Matcher() {
   this.reset();
 }
 
 Matcher.prototype = {
 
   add: function(card) {
-    if (!card || _.includes(this._cards, card) || this._cardsVM(card.id).state() === 'taken') {
+    if (!card || _.includes(this._cards, card) || card.state() === STATES.TAKEN) {
       return false;
     }
-    this._cardsVM(card.id).state(STATES.MATCHING);
+    card.state(STATES.MATCHING);
     this._cards.push(card);
     return true;
   },
@@ -80,9 +79,7 @@ Matcher.prototype = {
   },
 
   _allSetState: function(state) {
-    _.forEach(this._cards, card => {
-      this._cardsVM(card.id).state(state);
-    });
+    _.forEach(this._cards, card => card.state(state));
   }
 
 };

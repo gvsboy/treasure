@@ -6,7 +6,7 @@ var map = {
 
   "uncommons": {
 
-    "Slime": ["Blue Slime"],
+    "Slime": ["Sludge"],
     "Rat": ["Giant Rat"],
     "Bat": ["Angry Bat"],
 

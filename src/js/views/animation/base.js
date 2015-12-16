@@ -68,7 +68,7 @@ function animate(opts, cardEl) {
 
         // Set the taken flags to trigger the outcome view.
         complete: function() {
-          opts.cardVM.state('taken');
+          opts.card.state('taken');
           m.endComputation();
         }
       });
@@ -85,14 +85,11 @@ export default function(ctrl, args) {
   var component;
 
   // Collect all the matched cards. There should be two if any.
-  var matchedCards = _.filter(ctrl.cards(), card => ctrl.cardsVM(card.id).isMatched());
+  var matchedCards = args.boardVM().getMatchedCards();
 
   // if there are matched cards, show them and begin that animation.
   if (!_.isEmpty(matchedCards)) {
-    component = m.component(
-      { view: matchedView },
-      { cards: matchedCards, cardsVM: ctrl.cardsVM, animate }
-    );
+    component = m.component({ view: matchedView }, { cards: matchedCards, animate });
   }
 
   // else, if there is an outcome card, reveal that instead!
