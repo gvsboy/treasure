@@ -1,3 +1,5 @@
+@import 'variables';
+
 #container {
   display: flex;
   justify-content: center;
@@ -8,6 +10,6 @@
   width: 8rem;
   margin-right: 0.6rem;
   padding: 0.6rem;
-  border: 0.2rem solid #000;
+  border: 0.2rem solid $color-cream;
   border-radius: 0.4rem;
 }

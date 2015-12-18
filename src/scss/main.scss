@@ -3,13 +3,14 @@
 @import 'inventory';
 @import 'bar';
 @import 'battle';
+@import 'variables';
 
 body {
   margin: 0;
   padding: 0;
   font-size: 16px;
   color: #fff;
-  background-color: #123456;
+  background-color: $color-darkbrown;
   font-family: Georgia;
 }
 

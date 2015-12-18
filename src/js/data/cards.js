@@ -2,7 +2,7 @@ import _ from 'lodash';
 
 import Mechanics from './mechanics';
 
-var DEFAULT_COLOR = '#ccc';
+var DEFAULT_COLOR = '#f8f4be';
 
 var iconMap = {
   "slime": "fleshy-mass",
