@@ -14,4 +14,18 @@
     fill: $color-cream;
   }
 
+  button {
+    width: 100%;
+    padding: 0;
+    border: none;
+    background: none;
+    color: $color-cream;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color 0.2s;
+
+    &:hover {
+      background-color: $color-hover;
+    }
+  }
 }

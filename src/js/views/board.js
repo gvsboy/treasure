@@ -9,9 +9,10 @@ var cardComponent = {
 
 export default function(ctrl, args) {
 
-  var board = args.boardVM();
+  var board = args.boardVM(),
+      clickHandler = _.bind(board.selectCard, board, args.player());
 
-  return m('ul#board', { class: board.state(), onclick: board.selectCard.bind(board, args.player()) }, [
+  return m('ul#board', { class: board.state(), onclick: clickHandler }, [
 
     _.map(board.cards(), card => {
 

@@ -55,7 +55,7 @@ export default function(ctrl) {
         m('li', 'Defense: ' + player.defense())
       ]),
       m('hr'),
-      m.component(inventory, { items: player.items() })
+      m.component(inventory, ctrl)
     ]),
 
     // Game board column.

@@ -1,6 +1,8 @@
 import m from 'mithril';
 
 import Character from './character';
+import Inventory from '../../vm/inventory';
+import Card from '../card';
 
 class Player extends Character {
 
@@ -26,7 +28,12 @@ class Player extends Character {
     this.exp = m.prop(0);
     this.next = m.prop(50);
 
-    this.items = m.prop([]);
+    this.inventory = new Inventory(this);
+
+    Card.getByName('Fire Scroll').activate(this);
+    Card.getByName('Short Sword').activate(this);
+    Card.getByName('Leather Vest').activate(this);
+    
   }
 
   incrementTurn() {
@@ -45,8 +52,10 @@ class Player extends Character {
     this.exp(this.exp() + amount);
   }
 
-  addItem(item) {
-    this.items().push(item);
+  setBattleAction(action) {
+    if (!this._batleAction) {
+      this._batleAction = action;
+    }
   }
 
 }

@@ -6,6 +6,6 @@ export default function(player) {
     type: this.type(),
     icon: this.icon()
   });
-  player.addItem(item);
+  player.inventory.add(item);
   return item;
 };

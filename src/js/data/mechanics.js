@@ -242,12 +242,14 @@ export const magic = {
 
   "Fire Scroll": {
     type: "scroll",
+    usage: "battle",
     element: "fire",
     attack: "2d8"
   },
 
   "Blaze Scroll": {
     type: "scroll",
+    usage: "battle",
     color: lv2Color,
     element: "fire",
     attack: "3d8"
