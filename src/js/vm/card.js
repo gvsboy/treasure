@@ -3,20 +3,18 @@ import _ from 'lodash';
 
 import Mechanics from '../mechanics/mechanics';
 
+import State from '../vm/state';
+
 function Card(data) {
   this.id = 'card-' + _.uniqueId();
   this.name = m.prop(data.name);
   this.type = m.prop(data.type);
   this.icon = m.prop(data.icon);
   this.color = m.prop(data.color);
-  this.state = m.prop('');
+  this.state = m.prop(new State());
 }
 
 Card.prototype = {
-
-  isMatched: function() {
-    return this.state() === 'matched';
-  },
 
   /**
    * Retrieves the proper mechanics for the card and invokes them.

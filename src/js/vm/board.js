@@ -1,39 +1,34 @@
 import m from 'mithril';
 import _ from 'lodash';
 
-import STATES from '../config/states';
 import Matcher from '../services/matcher';
 
 import Card from '../models/card';
+import State from '../vm/state';
 
 function Board(floor) {
   this.cards = m.prop(Card.get(floor));
   this.outcomeCard = m.prop(null);
-  this.state = m.prop('');
-
+  this.state = m.prop(new State());
   this._matcher = new Matcher();
 }
 
 Board.prototype = {
 
-  isLocked: function() {
-    var state = this.state();
-    return state === STATES.MATCHING || state === STATES.MATCHED || state === STATES.DEAD;
-  },
-
   getMatchedCards: function() {
-    return _.filter(this.cards(), card => card.isMatched());
+    return State.filter(this.cards(), State.MATCHED);
   },
 
   selectCard: function(player, evt) {
 
     // Reference a card model object based on the click target.
     var card = Card.getByDOMElement(evt.target, this.cards()),
+        state = this.state(),
         matcher = this._matcher;
 
     // If the board is locked the card is not successfully added
     // to the matcher, abort!
-    if (this.isLocked() || !matcher.add(card)) {
+    if (state.isMatchingLocked() || !matcher.add(card)) {
       m.redraw.strategy('none');
       return;
     }
@@ -43,18 +38,18 @@ Board.prototype = {
     if (matcher.isReady()) {
 
       // Lock the board UI up.
-      this.state(STATES.MATCHING);
+      state.set(State.MATCHING);
 
       _.delay(() => {
 
         // If there's a match, the board fades out a bit and is still locked.
         if (this.outcomeCard(matcher.generateOutcome())) {
-          this.state(STATES.MATCHED);
+          state.set(State.MATCHED);
         }
 
         // Else, it's a no-go.
         else {
-          this.state(STATES.DEFAULT);
+          state.set(State.DEFAULT);
         }
 
         // I hate this reference to player. But it'll do for now...

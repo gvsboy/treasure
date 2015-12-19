@@ -3,6 +3,8 @@ import _ from 'lodash';
 
 import Mechanics from '../data/mechanics';
 
+import State from '../vm/state';
+
 function Item(data) {
   this.name = m.prop(data.name);
   this.type = m.prop(data.type);
@@ -13,12 +15,13 @@ Item.prototype = {
 
   activate: function(board, player) {
     var mechanic = Mechanics[this.type()][this.name()];
-    console.log(board.state());
+    if (board.state().is(State.BATTLE)) {
+
+    }
     this[`_use${_.capitalize(this.type())}`](mechanic);
   },
 
   _useMagic: function(data) {
-    console.log(data)
   }
 
 };

@@ -2,7 +2,7 @@ import m from 'mithril';
 import _ from 'lodash';
 import Velocity from 'velocity-animate';
 
-import STATES from '../../config/states';
+import State from '../../vm/state';
 import { toPx, stack, getTop, getEndingLeft } from '../../helpers/animation';
 import matchedView from './matched';
 import outcomeView from './outcome';
@@ -68,7 +68,7 @@ function animate(opts, cardEl) {
 
         // Set the taken flags to trigger the outcome view.
         complete: function() {
-          opts.card.state('taken');
+          opts.card.state().set(State.TAKEN);
           m.endComputation();
         }
       });
@@ -98,7 +98,7 @@ export default function(ctrl, args) {
   }
 
   // Otherwise, if the player is dead then stop the game!
-  else if (args.boardVM().state() === STATES.DEAD) {
+  else if (args.boardVM().state().is(State.DEAD)) {
     component = m.component({ view: deadView }, args);
   }
 

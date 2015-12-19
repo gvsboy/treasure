@@ -1,10 +1,10 @@
 import _ from 'lodash';
 
-import STATES from '../config/states';
-
-import Card from '../models/card';
 import Uncommons from '../data/Uncommons';
 import Dice from '../mechanics/dice';
+
+import Card from '../models/card';
+import State from '../vm/state';
 
 function Matcher() {
   this.reset();
@@ -13,10 +13,10 @@ function Matcher() {
 Matcher.prototype = {
 
   add: function(card) {
-    if (!card || _.includes(this._cards, card) || card.state() === STATES.TAKEN) {
+    if (!card || _.includes(this._cards, card) || card.state().is(State.TAKEN)) {
       return false;
     }
-    card.state(STATES.MATCHING);
+    card.state().set(State.MATCHING);
     this._cards.push(card);
     return true;
   },
@@ -27,7 +27,7 @@ Matcher.prototype = {
 
   reset: function(hard) {
     if (hard) {
-      this._allSetState(STATES.DEFAULT);
+      State.stamp(this._cards, State.DEFAULT);
     }
     this._cards = [];
   },
@@ -62,7 +62,7 @@ Matcher.prototype = {
       }
 
       // Setting to matched will trigger the animation.
-      this._allSetState(STATES.MATCHED);
+      State.stamp(this._cards, State.MATCHED);
     }
 
     this.reset(!generatedCard);
@@ -76,10 +76,6 @@ Matcher.prototype = {
   _allMatch: function(property) {
     var values = this._allGetPropertyValues(property);
     return _.uniq(values).length === 1;
-  },
-
-  _allSetState: function(state) {
-    _.forEach(this._cards, card => card.state(state));
   }
 
 };
