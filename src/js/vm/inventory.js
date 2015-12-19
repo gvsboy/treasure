@@ -19,7 +19,7 @@ Inventory.prototype = {
         index = _.indexOf(siblings, li),
         item = this.items()[index];
 
-    item.activate(board, this._player);
+    item.use(board, this._player);
   }
 
 };

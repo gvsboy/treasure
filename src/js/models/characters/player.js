@@ -3,6 +3,7 @@ import m from 'mithril';
 import Character from './character';
 import Inventory from '../../vm/inventory';
 import Card from '../card';
+import State from '../../vm/state';
 
 class Player extends Character {
 
@@ -52,9 +53,25 @@ class Player extends Character {
     this.exp(this.exp() + amount);
   }
 
-  setBattleAction(action) {
-    if (!this._batleAction) {
-      this._batleAction = action;
+  toggleBattleItem(item) {
+
+    var currentItem = this._battleItem;
+
+    // If no item is ready, select the passed item.
+    if (!currentItem) {
+      this._battleItem = item.select();
+    }
+
+    // If the current item is the passed item, unselect it.
+    else if (currentItem === item) {
+      this._battleItem = null;
+      item.unselect();
+    }
+
+    // Otherwise, select the new item and unset the old.
+    else {
+      currentItem.unselect();
+      this._battleItem = item.select();
     }
   }
 

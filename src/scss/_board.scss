@@ -15,7 +15,8 @@
   }
 
   // Dim the board a bit while matched cards do their thing.
-  &.matched {
+  &.matched,
+  &.battle, {
     opacity: 0.2;
   }
 
@@ -26,6 +27,7 @@
   // Don't show the pointer cursor if the board is locked?
   &.matching .card,
   &.matched .card,
+  &.battle .card,
   &.dead .card {
     cursor: default;
   }

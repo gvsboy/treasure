@@ -16,6 +16,10 @@ export default function(args) {
     end();
   }
 
+  if (data.battle) {
+    boardVM().state().set(State.BATTLE);
+  }
+
   return {
     card,
     data,

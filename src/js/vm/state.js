@@ -16,7 +16,11 @@ State.prototype = {
   },
 
   is: function(value) {
-    return this._value() === value;
+    return this.get() === value;
+  },
+
+  not: function(value) {
+    return this.get() !== value;
   },
 
   isMatchingLocked: function() {
@@ -27,11 +31,14 @@ State.prototype = {
 
 // All the possible states.
 State.DEFAULT = '';
+
 State.TAKEN = 'taken';
 State.MATCHING = 'matching';
 State.MATCHED = 'matched';
 State.BATTLE = 'battle';
 State.DEAD = 'dead';
+
+State.SELECTED = 'selected';
 
 // When matching is locked, the user cannot interact with cards on the board.
 State.MATCHING_LOCKED = [
