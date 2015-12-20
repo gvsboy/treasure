@@ -1,5 +1,5 @@
 import m from 'mithril';
 
 export default function(ctrl, args) {
-  return m('h3', `${ctrl.data.attack} Attack`);
+  return m('h3', `${ctrl.data.mechanics().attack} Attack`);
 };
