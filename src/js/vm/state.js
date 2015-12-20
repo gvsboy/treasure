@@ -39,6 +39,7 @@ State.BATTLE = 'battle';
 State.DEAD = 'dead';
 
 State.SELECTED = 'selected';
+State.EQUIPPED = 'equipped';
 
 // When matching is locked, the user cannot interact with cards on the board.
 State.MATCHING_LOCKED = [

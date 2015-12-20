@@ -15,55 +15,40 @@ function Item(data) {
 
 Item.prototype = {
 
-  use: function(board, player) {
-
-    var isBattle = board.state().is(State.BATTLE);
-
-    // If we're in a battle right now, queue the item up
-    // instead of activating it.
-    if (isBattle) {
-      player.toggleBattleItem(this);
-      return;
-    }
-
-    // If we're not in a battle and the item is battle-only, exit.
-    else if (!isBattle && this.isBattleOnly()) {
-      return;
-    }
-
-    // Otherwise, activate the item's powers!
-    this.activate();
-  },
-
-  activate: function() {
-    return this[`_use${_.capitalize(this.type())}`].apply(this, arguments);
-  },
-
   select: function() {
-    this.state().set(State.SELECTED);
-    return this;
+    return this._setState(State.SELECTED);
   },
 
   unselect: function() {
-    this.state().set(State.DEFAULT);
-    return this;
+    return this._setState(State.DEFAULT);
+  },
+
+  equip: function() {
+    return this._setState(State.EQUIPPED);
+  },
+
+  unequip: function() {
+    return this.unselect();
+  },
+
+  isEquipped: function() {
+    return this.state().is(State.EQUIPPED);
   },
 
   isBattleOnly: function() {
     return this.mechanics().usage === 'battle';
   },
 
-  _useMagic: function() {
-    console.log('magic  !', arguments);
+  isEquippable: function() {
+    var type = this.type();
+    return type === 'weapon' || type === 'armor';
   },
 
-  _useWeapon: function() {
-    console.log('weapon!');
-  },
-
-  _useArmor: function() {
-    console.log('armor!');
+  _setState: function(value) {
+    this.state().set(value);
+    return this;
   }
+
 };
 
 export default Item;

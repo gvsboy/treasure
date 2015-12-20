@@ -15,9 +15,7 @@ class Player extends Character {
       strength: 5,
       vitality: 2,
       speed: 2,
-      magic: 1,
-      attack: '1d4',
-      defense: 6
+      magic: 1
     });
 
     this.energy = m.prop(50);
@@ -27,14 +25,35 @@ class Player extends Character {
     this.turns = m.prop(0);
     this.gold = m.prop(0);
     this.exp = m.prop(0);
-    this.next = m.prop(50);
+    this.next = m.prop(250);
 
     this.inventory = new Inventory(this);
 
+    Card.getByName('Dagger').activate(this).equip();
+    Card.getByName('Clothes').activate(this).equip();
+
+    // TESTING PURPOSES ONLY:::
     Card.getByName('Fire Scroll').activate(this);
     Card.getByName('Short Sword').activate(this);
+    Card.getByName('Mace').activate(this);
     Card.getByName('Leather Vest').activate(this);
-    
+    Card.getByName('Padded Vest').activate(this);
+  }
+
+  attack() {
+    var weapon = this.inventory.getEquipped('weapon');
+    if (weapon) {
+      return weapon.mechanics().attack;
+    }
+    return '1d2';
+  }
+
+  defense() {
+    var armor = this.inventory.getEquipped('armor');
+    if (armor) {
+      return armor.mechanics().defense;
+    }
+    return 2;
   }
 
   incrementTurn() {

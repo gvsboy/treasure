@@ -5,7 +5,7 @@ export default {
   battle: {
     use: {
       default: 'attacks',
-      scroll: 'reads',
+      scroll: 'recites',
       wand: 'brandishes',
       weapon: 'equips',
       armor: 'equips'

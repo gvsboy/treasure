@@ -8,7 +8,12 @@ class Monster extends Character {
 
   constructor(data) {
     super(data);
+
     this.type = m.prop(data.type);
+    this.attack = m.prop(data.attack);
+    this.defense = m.prop(data.defense);
+
+    // Calculate exp after the other properties are set.
     this.exp = m.prop(this._calculateExp());
   }
 

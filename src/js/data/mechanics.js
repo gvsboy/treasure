@@ -199,6 +199,12 @@ export const food = {
 
 export const weapon = {
 
+  // Starting weapon.
+  "Dagger": {
+    type: "short sword",
+    attack: "1d4"
+  },
+
   "Short Sword": {
     type: "short sword",
     attack: "1d6"
@@ -225,15 +231,21 @@ export const weapon = {
 
 export const armor = {
 
+  // Starting armor.
+  "Clothes": {
+    type: "leather armor",
+    defense: 6
+  },
+
   "Leather Vest": {
     type: "leather armor",
-    defense: 1
+    defense: 8
   },
 
   "Padded Vest": {
     type: "leather armor",
     color: lv2Color,
-    defense: 2
+    defense: 9
   }
 
 };

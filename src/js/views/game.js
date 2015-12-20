@@ -39,7 +39,7 @@ export default function(ctrl) {
         m('li', player.name()),
         m('li', 'Floor: ' + player.floor()),
         m('li', 'Level: ' + player.level()),
-        m('li', 'Exp: ' + player.exp()),
+        m('li', `Exp: ${player.exp()}/${player.next()}`),
         m(`li#${DOM.ID.GOLD_STATUS}`, 'Gold: ' + player.gold())
       ]),
       m('hr'),
