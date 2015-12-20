@@ -19,8 +19,6 @@ class Character {
     this.vitality = m.prop(data.vitality);
     this.speed = m.prop(data.speed);
     this.magic = m.prop(data.magic);
-
-    this.weaponIcon = m.prop(data.weaponIcon || 'punch');
   }
 
   isDead() {
@@ -31,7 +29,7 @@ class Character {
    * This is the interface for acting upon an opponent during
    * a round of battle. Should be overwritten by extended classes.
    * @param {Character} target The entity to act against.
-   * @return {*} The results of the action.
+   * @return {Message} The results of the action.
    */
   act(data) {
     data.character = this;

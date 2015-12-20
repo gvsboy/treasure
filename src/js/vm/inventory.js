@@ -24,6 +24,10 @@ Inventory.prototype = {
     });
   },
 
+  getSelected: function() {
+    return _.find(this.items(), item => item.isSelected());
+  },
+
   getByDOMElement: function(el) {
 
     var li = el.closest('li'),
@@ -46,7 +50,9 @@ Inventory.prototype = {
     // If we're in a battle right now, queue the item up
     // instead of activating it.
     if (isBattle) {
-      this._player.toggleBattleItem(item);
+      if (!item.isEquipped()) {
+        this._select(item);
+      }
       return;
     }
 
@@ -73,6 +79,24 @@ Inventory.prototype = {
 
     if (!wasEquipped) {
       item.equip();
+    }
+  },
+
+  _select(item) {
+
+    var previousSelected = this.getSelected();
+
+    if (!previousSelected) {
+      item.select();
+    }
+    else {
+      if (previousSelected === item) {
+        item.unselect();
+      }
+      else {
+        previousSelected.unselect();
+        item.select();
+      }
     }
   }
 

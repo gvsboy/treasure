@@ -32,12 +32,13 @@ class Player extends Character {
     Card.getByName('Dagger').activate(this).equip();
     Card.getByName('Clothes').activate(this).equip();
 
-    // TESTING PURPOSES ONLY:::
+    /* TESTING PURPOSES ONLY:::
     Card.getByName('Fire Scroll').activate(this);
     Card.getByName('Short Sword').activate(this);
     Card.getByName('Mace').activate(this);
     Card.getByName('Leather Vest').activate(this);
     Card.getByName('Padded Vest').activate(this);
+    */
   }
 
   attack() {
@@ -56,6 +57,14 @@ class Player extends Character {
     return 2;
   }
 
+  weaponIcon() {
+    var weapon = this.inventory.getEquipped('weapon');
+    if (weapon) {
+      return weapon.icon();
+    }
+    return 'punch';
+  }
+
   incrementTurn() {
     this.turns(this.turns() + 1);
   }
@@ -72,42 +81,34 @@ class Player extends Character {
     this.exp(this.exp() + amount);
   }
 
-  toggleBattleItem(item) {
-
-    var currentItem = this._battleItem;
-
-    // If no item is ready, select the passed item.
-    if (!currentItem) {
-      this._battleItem = item.select();
-    }
-
-    // If the current item is the passed item, unselect it.
-    else if (currentItem === item) {
-      this._battleItem = null;
-      item.unselect();
-    }
-
-    // Otherwise, select the new item and unset the old.
-    else {
-      currentItem.unselect();
-      this._battleItem = item.select();
-    }
-  }
-
   act(target) {
-    if (this._battleItem) {
-      if (this._battleItem.type() === 'magic') {
-        return super.act(this._useMagic(this._battleItem, target));
+
+    var selectedItem = this.inventory.getSelected();
+
+    if (selectedItem) {
+
+      if (selectedItem.type() === 'magic') {
+        return super.act(this._useMagic(selectedItem, target));
       }
+
+      else if (selectedItem.isEquippable()) {
+        return super.act(this._useEquipment(selectedItem));
+      }
+
     }
+
     return super.act(this.attackMelee(target));
   }
 
   _useMagic(item, target) {
     var damage = this.attackMagic(item.mechanics(), target);
     this.inventory.drop(item);
-    this._battleItem = null;
     return { damage, item };
+  }
+
+  _useEquipment(item) {
+    this.inventory._equip(item);
+    return { item };
   }
 
 }

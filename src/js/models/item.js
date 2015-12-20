@@ -23,6 +23,10 @@ Item.prototype = {
     return this._setState(State.DEFAULT);
   },
 
+  isSelected: function() {
+    return this.state().is(State.SELECTED);
+  },
+
   equip: function() {
     return this._setState(State.EQUIPPED);
   },
