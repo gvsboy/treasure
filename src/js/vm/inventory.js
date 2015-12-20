@@ -12,14 +12,27 @@ Inventory.prototype = {
     this.items().push(item);
   },
 
-  useByIndex: function(board, evt) {
+  drop: function(item) {
+    _.pull(this.items(), item);
+  },
 
-    var li = evt.target.closest('li'),
+  getByDOMElement: function(el) {
+
+    var li = el.closest('li'),
         siblings = li.parentNode.children,
-        index = _.indexOf(siblings, li),
-        item = this.items()[index];
+        index = _.indexOf(siblings, li);
 
-    item.use(board, this._player);
+    return this.items()[index];
+  },
+
+  useByDOMElement: function(board, evt) {
+
+    //if (board.state().isMatchingLocked()) {
+      //m.redraw.strategy('none');
+      //return;
+    //}
+
+    this.getByDOMElement(evt.target).use(board, this._player);
   }
 
 };

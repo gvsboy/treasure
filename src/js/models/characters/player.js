@@ -75,6 +75,22 @@ class Player extends Character {
     }
   }
 
+  act(target) {
+    if (this._battleItem) {
+      if (this._battleItem.type() === 'magic') {
+        return super.act(this._useMagic(this._battleItem, target));
+      }
+    }
+    return super.act(this.attackMelee(target));
+  }
+
+  _useMagic(item, target) {
+    var damage = this.attackMagic(item.mechanics(), target);
+    this.inventory.drop(item);
+    this._battleItem = null;
+    return { damage, item };
+  }
+
 }
 
 export default Player;

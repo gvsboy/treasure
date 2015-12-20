@@ -19,20 +19,24 @@ Item.prototype = {
 
     var isBattle = board.state().is(State.BATTLE);
 
+    // If we're in a battle right now, queue the item up
+    // instead of activating it.
     if (isBattle) {
       player.toggleBattleItem(this);
       return;
     }
 
+    // If we're not in a battle and the item is battle-only, exit.
     else if (!isBattle && this.isBattleOnly()) {
       return;
     }
 
+    // Otherwise, activate the item's powers!
     this.activate();
   },
 
   activate: function() {
-    this[`_use${_.capitalize(this.type())}`]();
+    return this[`_use${_.capitalize(this.type())}`].apply(this, arguments);
   },
 
   select: function() {
@@ -50,7 +54,7 @@ Item.prototype = {
   },
 
   _useMagic: function() {
-    console.log('magic  !');
+    console.log('magic  !', arguments);
   },
 
   _useWeapon: function() {

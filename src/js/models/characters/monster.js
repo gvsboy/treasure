@@ -12,6 +12,10 @@ class Monster extends Character {
     this.exp = m.prop(this._calculateExp());
   }
 
+  act(target) {
+    return super.act(this.attackMelee(target));
+  }
+
   _calculateExp() {
     return this.health() +
       this.strength() +

@@ -1,6 +1,11 @@
 import m from 'mithril';
 
 import Dice from '../../mechanics/dice';
+import Message from '../../services/message';
+
+function bonus(value) {
+  return Math.floor(value / 2);
+}
 
 class Character {
 
@@ -25,6 +30,17 @@ class Character {
     return this.health() === 0;
   }
 
+  /**
+   * This is the interface for acting upon an opponent during
+   * a round of battle. Should be overwritten by extended classes.
+   * @param {Character} target The entity to act against.
+   * @return {*} The results of the action.
+   */
+  act(data) {
+    data.character = this;
+    return new Message(data);
+  }
+
   attackMelee(target) {
 
     var hit = this.calculateToHit() >= target.calculateDodge(),
@@ -34,20 +50,27 @@ class Character {
       target.updateHealth(-damage);
     }
 
-    return damage;
+    return { damage };
+  }
+
+  // there needs to be logic for resistance and amplification.
+  attackMagic(data, target) {
+    var base = Dice.roll(data.attack) + bonus(this.magic());
+    target.updateHealth(-base);
+    return base;
   }
 
   calculateDodge() {
-    return this.defense() + Math.floor(this.speed() / 2);
+    return this.defense() + bonus(this.speed());
   }
 
   calculateToHit() {
-    return Math.floor(this.strength() / 2) + Dice.roll1d20();
+    return Dice.roll1d20() + bonus(this.strength());
   }
 
   calculateMeleeDamage(target) {
-    var base = Dice.roll(this.attack()) + Math.floor(this.strength() / 2);
-    return Math.max(base - Math.floor(target.vitality() / 2), 0);
+    var base = Dice.roll(this.attack()) + bonus(this.strength());
+    return Math.max(base - bonus(target.vitality()), 0);
   }
 
   updateHealth(amount) {

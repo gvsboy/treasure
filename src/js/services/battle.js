@@ -1,6 +1,7 @@
 import m from 'mithril';
 import _ from 'lodash';
 
+import Dictionary from '../config/dictionary';
 import Dice from '../mechanics/dice';
 
 import Monster from '../models/characters/monster';
@@ -46,30 +47,12 @@ Battle.prototype = {
     return _.last(combatants) === current ? _.first(combatants) : combatants[_.indexOf(combatants, current) + 1];
   },
 
-  _generateMessage: function(result) {
-
-    var message = {
-      action: `${this.combatant.name()} attacks!`
-    };
-
-    if (result > 0) {
-      message.result = `${result} damage`;
-    }
-    else {
-      message.result = 'Miss!';
-    }
-
-    message.icon = this.combatant.weaponIcon();
-
-    return message;
-  },
-
   _executeTurn: function() {
 
     var opponent = this._getNext(),
-        result = this.combatant.attackMelee(opponent);
+        result = this.combatant.act(opponent);
 
-    this.log().push(this._generateMessage(result));
+    this.log().push(result);
 
     m.redraw();
 

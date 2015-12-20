@@ -22,10 +22,17 @@
     color: $color-cream;
     text-align: left;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: background-color 0.2s, border-left 0.2s;
 
     &:hover {
       background-color: $color-hover;
     }
   }
+
+  .selected button {
+    border-left: 0.8em solid $color-cream;
+    border-top-left-radius: 2em;
+    border-bottom-left-radius: 2em;
+  }
+
 }
