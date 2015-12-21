@@ -7,7 +7,6 @@
 
   button {
     float: right;
-    color: $color-cream;
     &::after {
       content: '\025B4';
     }
@@ -18,8 +17,8 @@
     clear: both;
     margin-top: 1.2em;
     padding: 1em;
-    border: 0.1em solid $color-cream;
-    border-top: none;
+    border-left: 0.1em solid $color-cream;
+    border-bottom: 0.1em solid $color-cream;
   }
 
   li {

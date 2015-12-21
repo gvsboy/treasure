@@ -1,24 +1,22 @@
 import m from 'mithril';
 import _ from 'lodash';
 
-var base = {
+var LS_KEY = 'bardcard.speed',
 
-  // Delay after two cards are selected.
-  matching: 1000,
+    base = {
 
-  // Time between executed actions.
-  battle: 2000
+      // Delay after two cards are selected.
+      matching: 1000,
 
-};
+      // Time between executed actions.
+      battle: 2000
 
-function getMultiplier() {
-  return 1;
-}
+    };
 
 function Speed(base) {
 
-  var multiplier = getMultiplier();
-
+  var multiplier = window.localStorage.getItem(LS_KEY) || 1.0;
+  this.multiplier = m.prop(multiplier);
   this._base = base;
 
   _.forEach(base, (value, key) => {
@@ -29,6 +27,10 @@ function Speed(base) {
 Speed.prototype = {
 
   update: function(multiplier) {
+
+    window.localStorage.setItem(LS_KEY, multiplier);
+    this.multiplier(multiplier);
+
     _.forEach(this._base, (value, key) => {
       this[key](value * multiplier);
     });
