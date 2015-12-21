@@ -6,5 +6,7 @@ function resize(element, isInit, context) {
 }
 
 export default function(ctrl, args) {
-  return m('span.bar', { class: args.type, config: resize.bind(args) });
+  return m('div.bar-container', { class: args.type }, [
+    m('span.bar', { class: args.type, config: resize.bind(args) })
+  ]);
 };

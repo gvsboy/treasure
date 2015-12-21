@@ -69,8 +69,18 @@ class Player extends Character {
     this.turns(this.turns() + 1);
   }
 
+  status() {
+    if (this.energy() === 0) {
+      return 'Starving';
+    }
+    return 'OK';
+  }
+
   updateEnergy(amount) {
-    this.energy(this.energy() + amount);
+    var newValue = this._updateAttributeWithinBounds(amount, this.energy, this.maxEnergy);
+    if (newValue < 0) {
+      this.updateHealth(amount);
+    }
   }
 
   updateGold(amount) {

@@ -24,9 +24,7 @@ export default function(ctrl, args) {
 
   return m('div', [
 
-    m('div.bar-container', [
-      m.component(bar, { type: 'monster', value: monster.health(), max: monster.maxHealth() }),
-    ]),
+    m.component(bar, { type: 'monster', value: monster.health(), max: monster.maxHealth() }),
 
     m('ul.log-battle', { config: scroll }, [
       _.map(battle.log(), message => {

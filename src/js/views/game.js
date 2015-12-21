@@ -52,6 +52,7 @@ export default function(ctrl) {
       m('div.column.status', [
         m('ul', [
           m('li', player.name()),
+          m('li', `Status: ${player.status()}`),
           m('li', 'Floor: ' + player.floor()),
           m('li', 'Level: ' + player.level()),
           m('li', `Exp: ${player.exp()}/${player.next()}`),

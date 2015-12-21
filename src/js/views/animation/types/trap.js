@@ -13,7 +13,7 @@ export default function(ctrl, args) {
 
   return m('div', [
     m('li', 'Evading'),
-    m('div.bar-container', [
+    m('div.bar-container.trap', [
       m('div.evade-bar', { 'data-evade': data.evade })
     ]),
     m('div.results', [

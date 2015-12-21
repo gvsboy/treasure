@@ -69,18 +69,24 @@ class Character {
   }
 
   updateHealth(amount) {
+    this._updateAttributeWithinBounds(amount, this.health, this.maxHealth);
+  }
 
-    var newHealth = this.health() + amount;
+  _updateAttributeWithinBounds(amount, attribute, maxAttribute) {
 
-    if (newHealth > this.maxHealth()) {
-      this.health(this.maxHealth());
+    var newValue = attribute() + amount;
+
+    if (newValue > maxAttribute()) {
+      attribute(maxAttribute());
     }
-    else if (newHealth < 0) {
-      this.health(0);
+    else if (newValue < 0) {
+      attribute(0);
     }
     else {
-      this.health(newHealth);
+      attribute(newValue);
     }
+
+    return newValue;
   }
 
 }
