@@ -1,6 +1,22 @@
 @import 'variables';
 
-#container {
+#header {
+  color: $color-cream;
+  border-bottom: 0.1em solid $color-cream;
+
+  h1 {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    font-size: 1em;
+  }
+
+  span {
+    font-size: 0.6em;
+  }
+}
+
+#panels {
   display: flex;
   justify-content: center;
   margin-top: 1rem;

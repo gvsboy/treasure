@@ -21,12 +21,8 @@
 
   button {
     width: 100%;
-    padding: 0;
-    border: none;
-    background: none;
     color: $color-cream;
     text-align: left;
-    cursor: pointer;
     transition: background-color 0.2s, border-left 0.2s;
 
     &:hover {

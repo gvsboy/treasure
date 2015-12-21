@@ -19,7 +19,7 @@ export default function(ctrl, args) {
       return m.component(cardComponent, {
         id: card.id,
         class: `${card.state().get()} ${card.type()}`,
-      //  front: card.icon(),
+        front: card.icon(),
         back: card.icon(),
         color: card.color()
       });

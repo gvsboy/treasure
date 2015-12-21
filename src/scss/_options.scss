@@ -1,0 +1,59 @@
+@import 'variables';
+
+#menu-options {
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  button {
+    float: right;
+    color: $color-cream;
+    &::after {
+      content: '\025B4';
+    }
+  }
+
+  ul {
+    display: none;
+    clear: both;
+    margin-top: 1.2em;
+    padding: 1em;
+    border: 0.1em solid $color-cream;
+    border-top: none;
+  }
+
+  li {
+    position: relative;
+  }
+
+  input[type=range] {
+    color: $color-cream;
+    border-color: $color-cream;
+  }
+
+  .range-label {
+    position: absolute;
+    top: 1.4em;
+
+    &.left {
+      left: 5.4em;
+    }
+    &.right {
+      right: 0.8em;
+    }
+  }
+
+  &.active {
+
+    button {
+      &::after {
+        content: '\025BE';
+      }
+    }
+
+    ul {
+      display: block;
+    }
+  }
+
+}

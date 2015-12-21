@@ -1,12 +1,11 @@
 import m from 'mithril';
 import _ from 'lodash';
 
+import Speed from '../config/speed';
 import Dictionary from '../config/dictionary';
 import Dice from '../mechanics/dice';
 
 import Monster from '../models/characters/monster';
-
-var INTERVAL = 2000;
 
 function Battle() {
   this.combatants = _.toArray(arguments);
@@ -18,7 +17,7 @@ Battle.prototype = {
 
   _nextRound: function() {
     this.combatant = this._getNext();
-    _.delay(this._executeTurn.bind(this), INTERVAL);
+    _.delay(this._executeTurn.bind(this), Speed.battle());
   },
 
   /**
@@ -57,7 +56,7 @@ Battle.prototype = {
     m.redraw();
 
     if (opponent.isDead()) {
-      _.delay(this._end.bind(this), INTERVAL / 2, opponent);
+      _.delay(this._end.bind(this), Speed.battle() / 2, opponent);
     }
     else {
       this._nextRound();

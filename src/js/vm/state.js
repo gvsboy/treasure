@@ -23,6 +23,15 @@ State.prototype = {
     return this.get() !== value;
   },
 
+  toggle: function(value) {
+    if (this.get() === value) {
+      this.set(State.DEFAULT);
+    }
+    else {
+      this.set(value);
+    }
+  },
+
   isMatchingLocked: function() {
     return _.includes(State.MATCHING_LOCKED, this.get());
   }
@@ -40,6 +49,8 @@ State.DEAD = 'dead';
 
 State.SELECTED = 'selected';
 State.EQUIPPED = 'equipped';
+
+State.ACTIVE = 'active';
 
 // When matching is locked, the user cannot interact with cards on the board.
 State.MATCHING_LOCKED = [

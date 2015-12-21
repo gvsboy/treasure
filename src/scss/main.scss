@@ -3,6 +3,7 @@
 @import 'inventory';
 @import 'bar';
 @import 'battle';
+@import 'options';
 @import 'variables';
 
 body {
@@ -26,4 +27,11 @@ li {
 h2, h3 {
   margin: 0;
   padding: 0;
+}
+
+button {
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
 }
