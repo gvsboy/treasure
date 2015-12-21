@@ -22,12 +22,6 @@ export default function(ctrl, args) {
   var battle = ctrl.data.battle,
       monster = ctrl.data.monster;
 
-  // This is so shitty.
-  if (battle.complete) {
-    ctrl.end();
-    _.delay(m.redraw, 2000);
-  }
-
   return m('div', [
 
     m('div.bar-container', [

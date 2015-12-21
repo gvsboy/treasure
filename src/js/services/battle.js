@@ -15,6 +15,11 @@ function Battle() {
 
 Battle.prototype = {
 
+  // I hate this but it's better than when it was in the view.
+  onComplete: function(callback) {
+    this._onComplete = callback;
+  },
+
   _nextRound: function() {
     this.combatant = this._getNext();
     _.delay(this._executeTurn.bind(this), Speed.battle());
@@ -72,8 +77,12 @@ Battle.prototype = {
       this.log().push(`You earned ${deceased.exp()} experience points!`);
     }
 
-    this.complete = true;
     m.redraw();
+
+    if (this._onComplete) {
+      this._onComplete();
+      _.delay(m.redraw, Speed.battle());
+    }
   }
 
 };

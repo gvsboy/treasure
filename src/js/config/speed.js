@@ -5,8 +5,8 @@ var LS_KEY = 'bardcard.speed',
 
     base = {
 
-      // Delay after two cards are selected.
-      matching: 1000,
+      // Animation after two cards are selected.
+      spin: 3000,
 
       // Time between executed actions.
       battle: 2000

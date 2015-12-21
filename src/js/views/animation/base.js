@@ -2,6 +2,8 @@ import m from 'mithril';
 import _ from 'lodash';
 import Velocity from 'velocity-animate';
 
+import Speed from '../../config/speed';
+
 import State from '../../vm/state';
 import { toPx, stack, getTop, getEndingLeft } from '../../helpers/animation';
 import matchedView from './matched';
@@ -46,7 +48,7 @@ function animate(opts, cardEl) {
   Velocity(cardEl, {
     rotateY: '1440deg'
   }, {
-    duration: 3000,
+    duration: Speed.spin(),
     easing: 'ease-out',
     queue: false
   });
@@ -55,8 +57,8 @@ function animate(opts, cardEl) {
   Velocity(cardEl, {
     left: getEndingLeft(board, realCard)
   }, {
-    duration: 600,
-    delay: 2600,
+    duration: Speed.spin() / 6,
+    delay: Speed.spin() / 1.2,
     queue: false,
 
     // Flash of white and afterwards the outcome will be revealed.

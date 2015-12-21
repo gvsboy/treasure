@@ -18,6 +18,7 @@ export default function(args) {
 
   if (data.battle) {
     boardVM().state().set(State.BATTLE);
+    data.battle.onComplete(end);
   }
 
   return {

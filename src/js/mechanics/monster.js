@@ -1,6 +1,3 @@
-// QUICK HACK
-import _ from 'lodash';
-
 import Battle from '../services/battle';
 
 import Monster from '../models/characters/monster';
